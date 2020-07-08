@@ -18,7 +18,7 @@ public class Load : MonoBehaviour
             if (result == DialogResult.OK
                 && File.Exists(path))
             {
-                BasicSettings.instance.LoadSettingsFrom(path);
+                BasicSettings.Instance.LoadSettingsFrom(path);
                 SceneManager.LoadScene((int)EditorScene);
             }
             else

@@ -20,7 +20,7 @@ public class CreateNew : MonoBehaviour
         string savePath = SavePathField.text;
         string filePath = FilePathField.text;
 
-        BasicSettings.instance.Set(name, savePath, filePath);
+        BasicSettings.Instance.Set(name, savePath, filePath);
         SceneManager.LoadScene((int)EditorScene);
     }
 

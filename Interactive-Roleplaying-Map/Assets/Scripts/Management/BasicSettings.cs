@@ -1,23 +1,33 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BasicSettings : MonoBehaviour
 {
-	public static BasicSettings instance; 
+	public static BasicSettings Instance;
 
+	public string MapFilePath;
 	public string Name;
 	public string StoragePath;
 	public string ImagePath;
 	
+	public bool IsNewProject
+	{
+		get 
+		{ 
+			return MapFilePath == null; 
+		}
+	}
+
+
 	public void Start()
 	{
-		if (instance == null)
+		if (Instance == null)
 		{
 			DontDestroyOnLoad(this);
-			instance = this;
+			Instance = this;
 		}
 		else
 		{
+			Debug.LogWarning("BasicSettings already initialized, destroying self...");
 			Destroy(this);
 		}
 	}
@@ -31,6 +41,6 @@ public class BasicSettings : MonoBehaviour
 
 	public void LoadSettingsFrom(string path)
 	{
-
+		this.MapFilePath = path;
 	}
 }
