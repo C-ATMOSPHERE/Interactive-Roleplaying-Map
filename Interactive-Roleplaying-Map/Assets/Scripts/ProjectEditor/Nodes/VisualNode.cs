@@ -28,8 +28,15 @@ public class VisualNode : MonoBehaviour
 		}
 	}
 
+	public void ForcePlace()
+	{
+		isPlaced = true;
+	}
+
 	private void Place()
 	{
+		node.PositionX = this.transform.position.x;
+		node.PositionY = this.transform.position.y;
 		mapEditor.PlaceNode(this.node);
 		isPlaced = true;
 	}

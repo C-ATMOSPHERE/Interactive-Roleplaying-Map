@@ -33,6 +33,17 @@ public class MapEditor: MonoBehaviour
 	public void Set(InteractiveMap interactiveMap)
 	{
 		this.interactiveMap = interactiveMap;
+		SpawnMapItems();
+	}
+
+	private void SpawnMapItems()
+	{
+		foreach(Node node in interactiveMap.MapNodes)
+		{
+			VisualNode visualNode = visualNodeFactory.CreateNode(node);
+			visualNode.transform.position = new Vector3(node.PositionX, node.PositionY, 0);
+			visualNode.ForcePlace();
+		}
 	}
 
 	public void CreateNewNode()
