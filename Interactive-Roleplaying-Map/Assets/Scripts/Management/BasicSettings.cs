@@ -19,6 +19,13 @@ public class BasicSettings : MonoBehaviour
 		}
 	}
 
+	public string StaticPath 
+	{ 
+		get
+		{
+			return Path.Combine(Application.persistentDataPath, "data");
+		}
+	}
 
 	public string StaticImagePath
 	{
@@ -26,8 +33,7 @@ public class BasicSettings : MonoBehaviour
 		{
 			return Path.ChangeExtension(
 				Path.Combine(
-					Application.persistentDataPath,
-					"data",
+					StaticPath,
 					this.Name + "_image"), 
 				Path.GetExtension(ImagePath));
 		}
@@ -38,8 +44,7 @@ public class BasicSettings : MonoBehaviour
 		get
 		{
 			return Path.Combine(
-				Application.persistentDataPath,
-				"data",
+				StaticPath,
 				this.name + "_data.json");
 		}
 	}
@@ -51,6 +56,11 @@ public class BasicSettings : MonoBehaviour
 		{
 			DontDestroyOnLoad(this);
 			Instance = this;
+
+			if (!Directory.Exists(StaticPath))
+			{
+				Directory.CreateDirectory(StaticPath);
+			}
 		}
 		else
 		{
