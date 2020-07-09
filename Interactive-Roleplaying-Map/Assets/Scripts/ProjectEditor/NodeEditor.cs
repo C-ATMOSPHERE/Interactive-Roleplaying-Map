@@ -15,6 +15,22 @@ public class NodeEditor : MonoBehaviour
 		this.currentVisualNode = visualNode;
 		this.currentNode = node;
 
+		NameField.text = node.Name;
+		DescriptionField.text = node.Description;
+
+		int index = 0;
+		for (int i = 0; i < RarityField.options.Count; i++)
+		{
+			Dropdown.OptionData option = RarityField.options[i];
+			if(option.text == node.Rarity)
+			{
+				index = i;
+				break;
+			}
+		}
+
+		RarityField.value = index;
+
 		gameObject.SetActive(true);
 	}
 
