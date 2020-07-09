@@ -21,10 +21,12 @@ public class ProjectLoader : MonoBehaviour
 
         if (settings.IsNewProject)
         {
+            Debug.Log("Loading New Project!");
             CreateNewProject();
         }
         else
         {
+            Debug.Log("Loading Existing Project!");
             LoadProjectFromPath();
         }
 
@@ -50,7 +52,7 @@ public class ProjectLoader : MonoBehaviour
     {
         SimpleZipper zipper = new SimpleZipper();
         byte[] data = File.ReadAllBytes(settings.MapFilePath);
-        zipper.Unzip(data, Application.dataPath);
+        zipper.Unzip(data, settings.StaticPath);
 
         string dataJson = File.ReadAllText(settings.StaticDataPath);
         interactiveMap = JsonUtility.FromJson<InteractiveMap>(dataJson);

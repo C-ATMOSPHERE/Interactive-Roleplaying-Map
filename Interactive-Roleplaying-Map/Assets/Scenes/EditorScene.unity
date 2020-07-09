@@ -478,7 +478,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MapImageTarget: {fileID: 517704238}
   InteractiveMapEditor: {fileID: 1398497673}
-  AllowClearAppData: 0
+  AllowClearAppData: 1
 --- !u!1 &486627308
 GameObject:
   m_ObjectHideFlags: 0
