@@ -20,7 +20,7 @@ public class MapEditor: MonoBehaviour
 		state = MapEditorState.MovingNode;
 		long id = interactiveMap.GetNextId;
 		Node node = new Node(id);
-		visualNodeFactory.CreateNode(node);
+		current = visualNodeFactory.CreateNode(node);
 	}
 
 	private void Update()
@@ -38,8 +38,7 @@ public class MapEditor: MonoBehaviour
 
 	private void MovingNode()
 	{
-		Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		position.z = 0;
+		Vector3 position = Input.mousePosition;
 		current.transform.position = position;
 	}
 }

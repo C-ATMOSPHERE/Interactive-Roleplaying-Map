@@ -16,7 +16,6 @@ public class InteractiveMap
 	[JsonIgnore] public long GetNextId { get { return CurrentId++; } }
 
 	// This field is only used for json (de)serialization.
-	
 	public Node[] SerializableNodes
 	{
 		get

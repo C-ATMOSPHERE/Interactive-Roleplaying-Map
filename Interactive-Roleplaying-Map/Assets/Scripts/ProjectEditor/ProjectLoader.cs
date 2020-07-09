@@ -13,6 +13,7 @@ public class ProjectLoader : MonoBehaviour
     private BasicSettings settings;
     private InteractiveMap interactiveMap;
 
+
     private void Start()
     {
         settings = BasicSettings.Instance;
@@ -36,6 +37,7 @@ public class ProjectLoader : MonoBehaviour
         SaveProject();
         ClearAppData();
     }
+
 
     private void CreateNewProject()
     {
