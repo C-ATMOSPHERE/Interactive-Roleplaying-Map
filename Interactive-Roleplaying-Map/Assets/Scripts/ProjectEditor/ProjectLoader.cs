@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
+using JsonUtility = SimpleJsonLibrary.JsonUtility;
 
 public class ProjectLoader : MonoBehaviour
 {
@@ -33,6 +34,7 @@ public class ProjectLoader : MonoBehaviour
     {
         //TODO: make a pop-up asking for save. 
         SaveProject();
+        ClearAppData();
     }
 
     private void CreateNewProject()
@@ -81,6 +83,10 @@ public class ProjectLoader : MonoBehaviour
             "irm");
 
         zipper.Zip(settings.StaticPath, targetPath);
+    }
 
+    private void ClearAppData()
+    {
+        Directory.Delete(settings.StaticPath, true);
     }
 }

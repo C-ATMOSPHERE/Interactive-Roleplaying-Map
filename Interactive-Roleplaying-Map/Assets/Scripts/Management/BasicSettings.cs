@@ -45,7 +45,7 @@ public class BasicSettings : MonoBehaviour
 		{
 			return Path.Combine(
 				StaticPath,
-				this.name + "_data.json");
+				this.Name + "_data.json");
 		}
 	}
 
