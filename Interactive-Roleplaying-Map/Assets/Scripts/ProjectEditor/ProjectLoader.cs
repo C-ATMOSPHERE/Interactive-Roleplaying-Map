@@ -75,7 +75,7 @@ public class ProjectLoader : MonoBehaviour
 
     private void SaveProject()
     {
-        string mapJson = JsonUtility.ToJson(interactiveMap);
+        string mapJson = JsonUtility.ToJson(interactiveMap, true);
         File.WriteAllText(settings.StaticDataPath, mapJson);
 
         SimpleZipper zipper = new SimpleZipper();

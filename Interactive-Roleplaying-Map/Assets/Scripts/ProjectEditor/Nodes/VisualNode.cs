@@ -3,18 +3,44 @@
 // Contains all functionality for the visual aspect of the nodes. 
 public class VisualNode : MonoBehaviour
 {
-	private Node node = null;
-	private MapEditor editor;
+	private Node node;
+	private MapEditor mapEditor;
+	private NodeEditor nodeEditor;
+	private bool isPlaced;
 
-	public void Set(Node node, MapEditor editor)
+	public void Set(Node node, MapEditor editor, NodeEditor nodeEditor)
 	{
 		this.node = node;
-		this.editor = editor;
+		this.mapEditor = editor;
+		this.nodeEditor = nodeEditor;
+		isPlaced = false;
 	}
 
-
-	public void Place()
+	public void OnClick()
 	{
-		editor.PlaceNode(this.node);
+		if (isPlaced)
+		{
+			Interact();
+		}
+		else
+		{
+			Place();
+		}
+	}
+
+	private void Place()
+	{
+		mapEditor.PlaceNode(this.node);
+		isPlaced = true;
+	}
+
+	private void Interact()
+	{
+		nodeEditor.StartEdit(this, this.node);
+	}
+
+	public void OnUpdate()
+	{
+		//TODO: Update things.
 	}
 }
