@@ -2,26 +2,20 @@
 
 public class MapEditor: MonoBehaviour
 {
+	private enum MapEditorState
+	{
+		Idle,
+		MovingNode
+	}
+
+
 	public VisualNodeFactory visualNodeFactory;
+	public Editor editor;
 
 	private InteractiveMap interactiveMap;
 	private MapEditorState state = MapEditorState.Idle;
-	
 	private VisualNode current;
 
-	public void Set(InteractiveMap interactiveMap)
-	{
-		this.interactiveMap = interactiveMap;
-		// TODO: Do stuff.
-	}
-
-	public void CreateNewNode()
-	{
-		state = MapEditorState.MovingNode;
-		long id = interactiveMap.GetNextId;
-		Node node = new Node(id);
-		current = visualNodeFactory.CreateNode(node);
-	}
 
 	private void Update()
 	{
@@ -36,6 +30,27 @@ public class MapEditor: MonoBehaviour
 	}
 
 
+	public void Set(InteractiveMap interactiveMap)
+	{
+		this.interactiveMap = interactiveMap;
+	}
+
+	public void CreateNewNode()
+	{
+		state = MapEditorState.MovingNode;
+		long id = interactiveMap.GetNextId;
+		Node node = new Node(id);
+		current = visualNodeFactory.CreateNode(node);
+	}
+
+	public void PlaceNode(Node node)
+	{
+		interactiveMap.MapNodes.Add(node);
+		state = MapEditorState.Idle;
+		current = null;
+		editor.StopCreatingNewNode();
+	}
+
 	private void MovingNode()
 	{
 		Vector3 position = Input.mousePosition;
@@ -43,8 +58,3 @@ public class MapEditor: MonoBehaviour
 	}
 }
 
-public enum MapEditorState 
-{
-	Idle, 
-	MovingNode
-}

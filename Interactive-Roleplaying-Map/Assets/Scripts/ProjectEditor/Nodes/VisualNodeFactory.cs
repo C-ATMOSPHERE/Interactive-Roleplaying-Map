@@ -11,13 +11,14 @@ public class VisualNodeFactory : MonoBehaviour
 {
 	public VisualNode NodePrefab;
 	public Transform NodeContainer;
+	public MapEditor Editor;
 
 	public VisualNode CreateNode(Node node)
 	{
 		// set things like onClick references etc. as well here. 
 		VisualNode visualNode = Instantiate(NodePrefab, NodeContainer);
 		visualNode.name = "VisualNode_" + node.Id;
-		visualNode.Set(node);
+		visualNode.Set(node, Editor);
 		return visualNode;
 	}
 }

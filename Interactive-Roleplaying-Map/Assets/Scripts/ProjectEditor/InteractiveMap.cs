@@ -6,7 +6,6 @@ using UnityEngine.XR.WSA.Input;
 public class InteractiveMap
 {
 	public string Name;
-	public Image image;
 
 	[JsonIgnore] public List<Node> MapNodes = new List<Node>();
 

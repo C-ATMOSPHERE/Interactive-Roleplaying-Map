@@ -9,6 +9,7 @@ public class ProjectLoader : MonoBehaviour
 {
     public RawImage MapImageTarget;
     public MapEditor InteractiveMapEditor;
+    public bool AllowClearAppData = true;
 
     private BasicSettings settings;
     private InteractiveMap interactiveMap;
@@ -89,6 +90,9 @@ public class ProjectLoader : MonoBehaviour
 
     private void ClearAppData()
     {
-        Directory.Delete(settings.StaticPath, true);
+        if (AllowClearAppData)
+        {
+            Directory.Delete(settings.StaticPath, true);
+        }
     }
 }

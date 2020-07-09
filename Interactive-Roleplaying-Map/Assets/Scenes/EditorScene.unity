@@ -199,6 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MapImageTarget: {fileID: 517704238}
   InteractiveMapEditor: {fileID: 1398497673}
+  AllowClearAppData: 1
 --- !u!1 &517704236
 GameObject:
   m_ObjectHideFlags: 0
@@ -613,6 +614,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visualNodeFactory: {fileID: 1608213735}
+  editor: {fileID: 1453155659}
 --- !u!4 &1398497674
 Transform:
   m_ObjectHideFlags: 0
@@ -839,6 +841,7 @@ MonoBehaviour:
   NodePrefab: {fileID: -8779738021592217322, guid: 2802f7ffefc460b4ea6b6973a70d687c,
     type: 3}
   NodeContainer: {fileID: 2089164393}
+  Editor: {fileID: 1398497673}
 --- !u!1 &2036082176
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,18 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
-
-// contains all methodologies for the visual aspect of the nodes. 
+// Contains all functionality for the visual aspect of the nodes. 
 public class VisualNode : MonoBehaviour
 {
 	private Node node = null;
+	private MapEditor editor;
 
-	public void Set(Node node)
+	public void Set(Node node, MapEditor editor)
 	{
 		this.node = node;
+		this.editor = editor;
+	}
+
+
+	public void Place()
+	{
+		editor.PlaceNode(this.node);
 	}
 }
