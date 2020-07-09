@@ -10,7 +10,13 @@ public class InteractiveMap
 
 	[JsonIgnore] public List<Node> MapNodes = new List<Node>();
 
+	public long CurrentId = 0;
+	
+	
+	[JsonIgnore] public long GetNextId { get { return CurrentId++; } }
+
 	// This field is only used for json (de)serialization.
+	
 	public Node[] SerializableNodes
 	{
 		get
@@ -29,6 +35,5 @@ public class InteractiveMap
 	{
 		Name = name;
 		MapNodes = new List<Node>();
-
 	}
 }

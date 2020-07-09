@@ -7,15 +7,17 @@ using UnityEngine;
 
 // Produces visual Nodes. 
 
-public class NodeFactory : MonoBehaviour
+public class VisualNodeFactory : MonoBehaviour
 {
 	public VisualNode NodePrefab;
 	public Transform NodeContainer;
 
-	public void CreateNode(Node node)
+	public VisualNode CreateNode(Node node)
 	{
 		// set things like onClick references etc. as well here. 
-		VisualNode newNode = Instantiate(NodePrefab, NodeContainer);
-		newNode.Set(node);
+		VisualNode visualNode = Instantiate(NodePrefab, NodeContainer);
+		visualNode.name = "VisualNode_" + node.Id;
+		visualNode.Set(node);
+		return visualNode;
 	}
 }

@@ -12,7 +12,7 @@ public class ProjectLoader : MonoBehaviour
     private BasicSettings settings;
     private InteractiveMap interactiveMap;
 
-    public void Start()
+    private void Start()
     {
         settings = BasicSettings.Instance;
 
@@ -29,10 +29,16 @@ public class ProjectLoader : MonoBehaviour
         InteractiveMapEditor.Set(interactiveMap);
     }
 
+    private void OnApplicationQuit()
+    {
+        //TODO: make a pop-up asking for save. 
+        SaveProject();
+    }
+
     private void CreateNewProject()
     {
         interactiveMap = new InteractiveMap(settings.Name);
-        File.Copy(settings.ImagePath, settings.StaticImagePath);
+        File.Copy(settings.ImagePath, settings.StaticImagePath, true);
     }
 
     private void LoadProjectFromPath()
@@ -60,5 +66,21 @@ public class ProjectLoader : MonoBehaviour
         {
             throw new Exception("Could not load image file");
         }
+    }
+
+    private void SaveProject()
+    {
+        string mapJson = JsonUtility.ToJson(interactiveMap);
+        File.WriteAllText(settings.StaticDataPath, mapJson);
+
+        SimpleZipper zipper = new SimpleZipper();
+        string targetPath = Path.ChangeExtension(
+            Path.Combine(
+                settings.StoragePath,
+                settings.Name),
+            "irm");
+
+        zipper.Zip(settings.StaticPath, targetPath);
+
     }
 }
