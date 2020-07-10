@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using SimpleJsonLibrary;
-using UnityEngine.UI;
-using UnityEngine.XR.WSA.Input;
 
 public class InteractiveMap
 {

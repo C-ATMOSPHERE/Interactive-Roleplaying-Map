@@ -1,10 +1,8 @@
-﻿using UnityEngine;
-
-public class Node
+﻿public class Node
 {
 	public long Id;
 	public string Name;
-	public string Rarity;
+	public NodeRarity Rarity;
 	public string Description;
 	public float PositionX;
 	public float PositionY;
