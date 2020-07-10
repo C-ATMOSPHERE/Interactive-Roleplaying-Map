@@ -4,13 +4,12 @@ using UnityEngine;
 public class BasicSettings : MonoBehaviour
 {
 	public static BasicSettings Instance;
-
 	public string MapFilePath;
 
 	public string Name;
 	public string StoragePath;
 	public string ImagePath;
-	
+
 	public bool IsNewProject
 	{
 		get 
@@ -31,11 +30,8 @@ public class BasicSettings : MonoBehaviour
 	{
 		get
 		{
-			return Path.ChangeExtension(
-				Path.Combine(
-					StaticPath,
-					this.Name + "_image"), 
-				Path.GetExtension(ImagePath));
+			return 
+				Path.Combine(StaticPath, "image");
 		}
 	}
 
@@ -43,12 +39,9 @@ public class BasicSettings : MonoBehaviour
 	{
 		get
 		{
-			return Path.Combine(
-				StaticPath,
-				this.Name + "_data.json");
+			return Path.Combine(StaticPath, "data");
 		}
 	}
-
 
 	public void Start()
 	{
