@@ -1,4 +1,7 @@
-﻿public class Node
+﻿using System;
+
+[Serializable]
+public class Node
 {
 	public long Id;
 	public string Name;

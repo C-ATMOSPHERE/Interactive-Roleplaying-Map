@@ -38,13 +38,12 @@ public class NodeEditor : MonoBehaviour
 			currentNode.Description = description;
 			currentNode.Rarity = rarity;
 			
-			currentNode = null;
-			currentVisualNode = null;
-
 			currentVisualNode.OnUpdate();
 
-
 			gameObject.SetActive(false);
+
+			currentNode = null;
+			currentVisualNode = null;
 		}
 	}
 
