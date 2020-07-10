@@ -81,11 +81,13 @@ public class ProjectLoader : MonoBehaviour
         File.WriteAllText(settings.StaticDataPath, mapJson);
 
         SimpleZipper zipper = new SimpleZipper();
-        string targetPath = Path.ChangeExtension(
-            Path.Combine(
-                settings.StoragePath,
-                settings.Name),
-            "irm");
+        string targetPath = settings.IsNewProject
+            ? Path.ChangeExtension(
+                Path.Combine(
+                    settings.StoragePath,
+                    settings.Name),
+                "irm")
+            : settings.MapFilePath;
 
         zipper.Zip(settings.StaticPath, targetPath);
     }
