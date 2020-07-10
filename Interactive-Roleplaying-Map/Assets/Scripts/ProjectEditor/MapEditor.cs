@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Windows.Forms;
+using UnityEngine;
 
 public class MapEditor: MonoBehaviour
 {
@@ -70,8 +71,14 @@ public class MapEditor: MonoBehaviour
 
 	private void MovingNode()
 	{
-		Vector3 position = Input.mousePosition;
-		current.transform.position = position;
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		RaycastHit hitInfo;
+		if (Physics.Raycast(ray, out hitInfo))
+		{
+			Vector3 position = hitInfo.point;
+			position.z = -1;
+			current.transform.position = position;
+		}
 	}
 
 	public void StopEditing()

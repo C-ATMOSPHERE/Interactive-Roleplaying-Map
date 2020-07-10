@@ -67,7 +67,12 @@ public class ProjectLoader : MonoBehaviour
         if (isLoaded)
         {
             MapImageTarget.texture = texture;
-            MapImageTarget.rectTransform.sizeDelta = new Vector2(texture.width, texture.height);
+            Vector2 size = new Vector2(texture.width, texture.height);
+            MapImageTarget.rectTransform.sizeDelta = size;
+            
+            BoxCollider collider = MapImageTarget.GetComponent<BoxCollider>();
+            collider.size = size;
+            collider.center = size / 2;
         }
         else
         {
