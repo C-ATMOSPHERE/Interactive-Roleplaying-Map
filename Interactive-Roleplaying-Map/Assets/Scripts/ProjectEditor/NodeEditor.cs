@@ -27,18 +27,25 @@ public class NodeEditor : MonoBehaviour
 
 	public void CloseEdit()
 	{
-		// TODO: add some popup.
-		string name = NameField.text;
-		string description = DescriptionField.text;
-		NodeRarity rarity = (NodeRarity)RarityField.value;
+		if (currentNode != null)
+		{
+			// TODO: add some popup.
+			string name = NameField.text;
+			string description = DescriptionField.text;
+			NodeRarity rarity = (NodeRarity)RarityField.value;
 
-		currentNode.Name = name;
-		currentNode.Description = description;
-		currentNode.Rarity = rarity;
+			currentNode.Name = name;
+			currentNode.Description = description;
+			currentNode.Rarity = rarity;
+			
+			currentNode = null;
+			currentVisualNode = null;
 
-		currentVisualNode.OnUpdate();
+			currentVisualNode.OnUpdate();
 
-		gameObject.SetActive(false);
+
+			gameObject.SetActive(false);
+		}
 	}
 
 	public void MarkAsChanged()

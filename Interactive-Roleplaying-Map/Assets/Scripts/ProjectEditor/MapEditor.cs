@@ -62,10 +62,28 @@ public class MapEditor: MonoBehaviour
 		editor.StopCreatingNewNode();
 	}
 
+	public void StopPlacingNode()
+	{
+		Destroy(current.gameObject);
+		state = MapEditorState.Idle;
+	}
+
 	private void MovingNode()
 	{
 		Vector3 position = Input.mousePosition;
 		current.transform.position = position;
+	}
+
+	public void StopEditing()
+	{
+		switch (state)
+		{
+			case MapEditorState.MovingNode:
+				StopPlacingNode();
+				break;
+			default:
+				break;
+		}
 	}
 }
 

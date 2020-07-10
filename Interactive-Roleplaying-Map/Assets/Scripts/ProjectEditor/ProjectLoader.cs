@@ -75,7 +75,7 @@ public class ProjectLoader : MonoBehaviour
         }
     }
 
-    private void SaveProject()
+    public void SaveProject()
     {
         string mapJson = JsonUtility.ToJson(interactiveMap, true);
         File.WriteAllText(settings.StaticDataPath, mapJson);
