@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 // Contains all functionality for the visual aspect of the nodes. 
 public class VisualNode : MonoBehaviour
@@ -14,6 +15,7 @@ public class VisualNode : MonoBehaviour
 		this.mapEditor = editor;
 		this.nodeEditor = nodeEditor;
 		isPlaced = false;
+		ApplyRarityColor();
 	}
 
 	public void OnClick()
@@ -46,8 +48,16 @@ public class VisualNode : MonoBehaviour
 		nodeEditor.StartEdit(this, this.node);
 	}
 
+	private void ApplyRarityColor()
+	{
+		Color32 color = RarityColors.GetColor((int)node.Rarity);
+		Image image = GetComponent<Image>();
+		image.color = color;
+	}
+
 	public void OnUpdate()
 	{
 		//TODO: Update things.
+		ApplyRarityColor();
 	}
 }
