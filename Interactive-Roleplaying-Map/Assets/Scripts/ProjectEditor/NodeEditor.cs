@@ -7,6 +7,8 @@ public class NodeEditor : MonoBehaviour
 	public InputField NameField;
 	public InputField DescriptionField;
 	public Dropdown RarityField;
+	public string OnNodeChangedMessage;
+	public string OnNodeChangedCaption;
 
 	private Node currentNode;
 	private VisualNode currentVisualNode;
@@ -30,28 +32,24 @@ public class NodeEditor : MonoBehaviour
 
 	public void StopEditing()
 	{
-		if (currentNode != null)
+		if (currentNode != null && contentUpdated)
 		{
-			if (contentUpdated)
+			DialogResult result = MessageBox.Show(
+				OnNodeChangedMessage, 
+				OnNodeChangedCaption, 
+				MessageBoxButtons.YesNoCancel);
+
+			if (result == DialogResult.Yes)
 			{
-				Debug.Log("Content has changed!!!");
-				DialogResult result = MessageBox.Show(
-					"Contents have been changed, do you want to save them?", 
-					"Node Content Changed", 
-					MessageBoxButtons.YesNoCancel);
-
-				if (result == DialogResult.Yes)
-				{
-					SaveNodeChanges();
-				}
-				else if (result == DialogResult.Cancel)
-				{
-					return;
-				}
+				SaveNodeChanges();
 			}
-
-			CloseEdit();
+			else if (result == DialogResult.Cancel)
+			{
+				return;
+			}
 		}
+
+		CloseEdit();
 	}
 
 	public void SaveNodeChanges()

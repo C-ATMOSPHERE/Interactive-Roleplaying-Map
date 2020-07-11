@@ -1977,6 +1977,8 @@ MonoBehaviour:
   NameField: {fileID: 1283671295}
   DescriptionField: {fileID: 1274102872}
   RarityField: {fileID: 1290551337}
+  OnNodeChangedMessage: Contents have been changed, do you want to save them?
+  OnNodeChangedCaption: Node Content Changed
 --- !u!1 &992416245
 GameObject:
   m_ObjectHideFlags: 0
