@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Editor : MonoBehaviour
 {
@@ -24,5 +25,17 @@ public class Editor : MonoBehaviour
 		NodeEditor.StopEditing();
 		MapEditor.StopEditing();
 		ProjectLoader.SaveProject();
+	}
+
+	public void GoToMainMenu()
+	{
+		SaveProject();
+		SceneManager.LoadScene((int)Scenes.MenuScene);
+	}
+
+	public void Quit()
+	{
+		SaveProject();
+		Application.Quit();
 	}
 }

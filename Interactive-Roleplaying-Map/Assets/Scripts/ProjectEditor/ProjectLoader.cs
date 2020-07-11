@@ -1,6 +1,7 @@
 ﻿using Framework.Storage;
 using System;
 using System.IO;
+using System.Windows.Forms;
 using UnityEngine;
 using UnityEngine.UI;
 using JsonUtility = SimpleJsonLibrary.JsonUtility;
@@ -10,6 +11,8 @@ public class ProjectLoader : MonoBehaviour
     public RawImage MapImageTarget;
     public MapEditor InteractiveMapEditor;
     public bool AllowClearAppData = true;
+    public string OnSaveProjectMessage;
+    public string OnSaveProjectCaption;
 
     private BasicSettings settings;
     private InteractiveMap interactiveMap;
@@ -82,19 +85,24 @@ public class ProjectLoader : MonoBehaviour
 
     public void SaveProject()
     {
-        string mapJson = JsonUtility.ToJson(interactiveMap, true);
-        File.WriteAllText(settings.StaticDataPath, mapJson);
+        DialogResult result = MessageBox.Show(OnSaveProjectMessage, OnSaveProjectCaption, MessageBoxButtons.YesNoCancel);
 
-        SimpleZipper zipper = new SimpleZipper();
-        string targetPath = settings.IsNewProject
-            ? Path.ChangeExtension(
-                Path.Combine(
-                    settings.StoragePath,
-                    settings.Name),
-                "irm")
-            : settings.MapFilePath;
+        if (result == DialogResult.Yes)
+        {
+            string mapJson = JsonUtility.ToJson(interactiveMap, true);
+            File.WriteAllText(settings.StaticDataPath, mapJson);
 
-        zipper.Zip(settings.StaticPath, targetPath);
+            SimpleZipper zipper = new SimpleZipper();
+            string targetPath = settings.IsNewProject
+                ? Path.ChangeExtension(
+                    Path.Combine(
+                        settings.StoragePath,
+                        settings.Name),
+                    "irm")
+                : settings.MapFilePath;
+
+            zipper.Zip(settings.StaticPath, targetPath);
+        }
     }
 
     private void ClearAppData()
