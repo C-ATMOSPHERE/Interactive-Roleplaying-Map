@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Windows.Forms;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class NodeEditor : MonoBehaviour
@@ -14,7 +15,9 @@ public class NodeEditor : MonoBehaviour
 
 	public void StartEdit(VisualNode visualNode, Node node)
 	{
-		this.contentUpdated = false; // TODO: test whether previous content was updated prior to switching.
+		StopEditing(); 
+
+		this.contentUpdated = false; 
 		this.currentVisualNode = visualNode;
 		this.currentNode = node;
 
@@ -25,30 +28,57 @@ public class NodeEditor : MonoBehaviour
 		gameObject.SetActive(true);
 	}
 
-	public void CloseEdit()
+	public void StopEditing()
 	{
 		if (currentNode != null)
 		{
-			// TODO: add some popup.
-			string name = NameField.text;
-			string description = DescriptionField.text;
-			NodeRarity rarity = (NodeRarity)RarityField.value;
+			if (contentUpdated)
+			{
+				Debug.Log("Content has changed!!!");
+				DialogResult result = MessageBox.Show(
+					"Contents have been changed, do you want to save them?", 
+					"Node Content Changed", 
+					MessageBoxButtons.YesNoCancel);
 
-			currentNode.Name = name;
-			currentNode.Description = description;
-			currentNode.Rarity = rarity;
-			
-			currentVisualNode.OnUpdate();
+				if (result == DialogResult.Yes)
+				{
+					SaveNodeChanges();
+				}
+				else if (result == DialogResult.Cancel)
+				{
+					return;
+				}
+			}
 
-			gameObject.SetActive(false);
-
-			currentNode = null;
-			currentVisualNode = null;
+			CloseEdit();
 		}
+	}
+
+	public void SaveNodeChanges()
+	{
+		string name = NameField.text;
+		string description = DescriptionField.text;
+		NodeRarity rarity = (NodeRarity)RarityField.value;
+
+		currentNode.Name = name;
+		currentNode.Description = description;
+		currentNode.Rarity = rarity;
+
+		currentVisualNode.OnUpdate();
+
+		contentUpdated = false;
 	}
 
 	public void MarkAsChanged()
 	{
 		this.contentUpdated = true;
+	}
+
+	public void CloseEdit()
+	{
+		gameObject.SetActive(false);
+
+		currentNode = null;
+		currentVisualNode = null;
 	}
 }

@@ -21,7 +21,7 @@ public class Editor : MonoBehaviour
 
 	public void SaveProject()
 	{
-		NodeEditor.CloseEdit();
+		NodeEditor.StopEditing();
 		MapEditor.StopEditing();
 		ProjectLoader.SaveProject();
 	}

@@ -1,5 +1,4 @@
-﻿using System.Windows.Forms;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MapEditor: MonoBehaviour
 {
@@ -93,4 +92,3 @@ public class MapEditor: MonoBehaviour
 		}
 	}
 }
-
