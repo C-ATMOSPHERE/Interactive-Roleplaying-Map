@@ -14,6 +14,12 @@ public class VisualNode : MonoBehaviour
 		get; set;
 	}
 
+	public NodeRarity GetRarity
+	{
+		get { return node.Rarity; }
+	}
+
+
 
 	public void Set(Node node, MapEditor mapEditor, NodeEditor nodeEditor, Editor editor)
 	{
