@@ -8,6 +8,8 @@ public class Editor : MonoBehaviour
 	public NodeEditor NodeEditor;
 	public MapEditor MapEditor;
 	public ProjectLoader ProjectLoader;
+	public CameraController CameraController;
+
 
 	public void CreateNewNode()
 	{
@@ -19,12 +21,14 @@ public class Editor : MonoBehaviour
 	{
 		MiniMenu.SetActive(false);
 		NodeEditor.gameObject.SetActive(true);
+		CameraController.CanMove = false;
 	}
 
 	public void StopEditingNode()
 	{
 		NodeEditor.gameObject.SetActive(false);
 		MiniMenu.SetActive(true);
+		CameraController.CanMove = true;
 	}
 
 	public void SaveProject()

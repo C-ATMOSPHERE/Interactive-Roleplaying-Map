@@ -16,6 +16,7 @@ public class CameraController : MonoBehaviour
     private float maxHeight;
     private float minDepth;
 
+    public bool CanMove = true;
 
     private void Start()
     {
@@ -41,7 +42,7 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (!isInitialized)
+        if (!isInitialized || !CanMove)
             return;
 
         Move();

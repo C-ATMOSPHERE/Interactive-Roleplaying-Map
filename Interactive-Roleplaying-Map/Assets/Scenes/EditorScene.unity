@@ -1733,6 +1733,7 @@ MonoBehaviour:
   Speed: 500
   ZoomMultiplier: 3
   BoostMultiplier: 2
+  CanMove: 1
 --- !u!1 &909829797
 GameObject:
   m_ObjectHideFlags: 0
@@ -3849,6 +3850,7 @@ MonoBehaviour:
   NodeEditor: {fileID: 974554479}
   MapEditor: {fileID: 1398497673}
   ProjectLoader: {fileID: 373407905}
+  CameraController: {fileID: 887513585}
 --- !u!1 &1484499598
 GameObject:
   m_ObjectHideFlags: 0
