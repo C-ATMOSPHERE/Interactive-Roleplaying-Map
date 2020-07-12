@@ -3583,6 +3583,10 @@ MonoBehaviour:
   NameField: {fileID: 1816648857}
   SavePathField: {fileID: 294872139}
   FilePathField: {fileID: 624140436}
+  ErrorMessageCaption: Error
+  InvalidProjectNameMessage: Invalid Project Name
+  InvalidSavePathMessage: Invalid Save Path
+  InvalidFilePathMessage: Invalid Map File
   EditorScene: 1
 --- !u!1 &2032824931
 GameObject:
