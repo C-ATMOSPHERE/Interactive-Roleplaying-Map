@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BasicSettings : MonoBehaviour
 {
@@ -46,18 +47,28 @@ public class BasicSettings : MonoBehaviour
 	{
 		if (Instance == null)
 		{
-			DontDestroyOnLoad(this);
-			Instance = this;
-
-			if (!Directory.Exists(StaticPath))
-			{
-				Directory.CreateDirectory(StaticPath);
-			}
+			Initialize();
+		}
+		else if (SceneManager.GetActiveScene().buildIndex == (int)Scenes.MenuScene)
+		{
+			Destroy(Instance.gameObject);
+			Initialize();
 		}
 		else
 		{
 			Debug.LogWarning("BasicSettings already initialized, destroying self...");
 			Destroy(this);
+		}
+	}
+
+	private void Initialize()
+	{
+		DontDestroyOnLoad(this);
+		Instance = this;
+
+		if (!Directory.Exists(StaticPath))
+		{
+			Directory.CreateDirectory(StaticPath);
 		}
 	}
 
