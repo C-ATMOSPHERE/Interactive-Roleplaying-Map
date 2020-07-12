@@ -73,8 +73,7 @@ public class MapEditor: MonoBehaviour
 		node.PositionY = current.transform.position.y;
 
 		// Tests if it is a new node or not. 
-		IEnumerable<Node> old = interactiveMap.MapNodes.Where(n => n.Id == node.Id);
-		if (old == null)
+		if (node.Id > interactiveMap.MapNodes[interactiveMap.MapNodes.Count - 1].Id)
 		{
 			interactiveMap.MapNodes.Add(node);
 		}
