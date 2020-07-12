@@ -1,8 +1,8 @@
 ﻿
 public enum NodeRarity
 {
-	Low,
-	Medium,
-	High, 
+	Common,
+	Rare,
+	Epic, 
 	Legendary
 }

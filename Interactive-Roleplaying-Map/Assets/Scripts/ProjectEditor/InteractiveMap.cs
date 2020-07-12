@@ -14,6 +14,14 @@ public class InteractiveMap
 	
 	[JsonIgnore] public long GetNextId { get { return CurrentId++; } }
 
+	[JsonIgnore] public int Count { get { return MapNodes.Count; } }
+
+
+	public Node Get(int i)
+	{
+		return MapNodes[i];
+	}
+
 	// This field is only used for json (de)serialization.
 	public Node[] SerializableNodes
 	{

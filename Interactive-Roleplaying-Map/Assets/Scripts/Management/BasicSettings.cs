@@ -30,8 +30,7 @@ public class BasicSettings : MonoBehaviour
 	{
 		get
 		{
-			return 
-				Path.Combine(StaticPath, "image");
+			return Path.Combine(StaticPath, "image");
 		}
 	}
 
