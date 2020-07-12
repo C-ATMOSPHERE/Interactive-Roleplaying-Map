@@ -37,9 +37,8 @@ public class ProjectLoader : MonoBehaviour
         InteractiveMapEditor.Set(interactiveMap);
     }
 
-    private void OnApplicationQuit()
+    public void OnApplicationQuit()
     {
-        //TODO: make a pop-up asking for save. 
         SaveProject();
         ClearAppData();
     }
@@ -86,7 +85,6 @@ public class ProjectLoader : MonoBehaviour
     public void SaveProject()
     {
         DialogResult result = MessageBox.Show(OnSaveProjectMessage, OnSaveProjectCaption, MessageBoxButtons.YesNoCancel);
-
         if (result == DialogResult.Yes)
         {
             string mapJson = JsonUtility.ToJson(interactiveMap, true);

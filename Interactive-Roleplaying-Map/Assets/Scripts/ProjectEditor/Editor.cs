@@ -35,7 +35,6 @@ public class Editor : MonoBehaviour
 
 	public void Quit()
 	{
-		SaveProject();
 		Application.Quit();
 	}
 }
