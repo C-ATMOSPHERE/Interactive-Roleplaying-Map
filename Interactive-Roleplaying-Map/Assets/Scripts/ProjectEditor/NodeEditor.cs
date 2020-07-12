@@ -59,6 +59,12 @@ public class NodeEditor : MonoBehaviour
 		MapEditor.StartMovingNode(currentVisualNode);
 	}
 
+	public void DeleteNode()
+	{
+		MapEditor.DeleteNode(currentVisualNode, currentNode);
+		contentUpdated = false;
+		CloseEdit();
+	}
 
 	public void SaveNodeChanges()
 	{
@@ -84,6 +90,6 @@ public class NodeEditor : MonoBehaviour
 	{
 		currentNode = null;
 		currentVisualNode = null;
-		Editor.StopEditingNode();
+		Editor.StopEditingNode(); // TODO: Remove all the editor access from this script. It's turning spagetti.
 	}
 }

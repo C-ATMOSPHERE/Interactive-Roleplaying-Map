@@ -84,6 +84,12 @@ public class MapEditor: MonoBehaviour
 		Editor.StartEditingNode();
 	}
 
+	public void DeleteNode(VisualNode visualNode, Node node)
+	{
+		interactiveMap.MapNodes.Remove(node);
+		Destroy(visualNode.gameObject);
+		Editor.StopEditingNode();
+	}
 
 	public void StopPlacingNode()
 	{
