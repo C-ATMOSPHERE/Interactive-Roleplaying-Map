@@ -37,6 +37,7 @@ public class ProjectLoader : MonoBehaviour
         InteractiveMapEditor.Set(interactiveMap);
     }
 
+    // TODO: This caused BSOD when triggered with the default Windows quit button, due to the System.Windows.Forms implementation.
     public void OnApplicationQuit()
     {
         SaveProject();

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 public class MapEditor: MonoBehaviour
 {
@@ -9,8 +11,9 @@ public class MapEditor: MonoBehaviour
 	}
 
 
-	public VisualNodeFactory visualNodeFactory;
-	public Editor editor;
+	public VisualNodeFactory VisualNodeFactory;
+	public NodeEditor NodeEditor;
+	public Editor Editor;
 
 	private InteractiveMap interactiveMap;
 	private MapEditorState state = MapEditorState.Idle;
@@ -40,27 +43,49 @@ public class MapEditor: MonoBehaviour
 	{
 		foreach(Node node in interactiveMap.MapNodes)
 		{
-			VisualNode visualNode = visualNodeFactory.CreateNode(node);
+			VisualNode visualNode = VisualNodeFactory.CreateNode(node);
 			visualNode.transform.position = new Vector3(node.PositionX, node.PositionY, 0);
-			visualNode.ForcePlace();
+			// The node is forced to set its state to placed, 
+			// as the node is definitely up-to-date there is no need to call Place().
+			visualNode.IsPlaced = true; 
 		}
 	}
 
 	public void CreateNewNode()
 	{
-		state = MapEditorState.MovingNode;
 		long id = interactiveMap.GetNextId;
 		Node node = new Node(id);
-		current = visualNodeFactory.CreateNode(node);
+		VisualNode visualNode = VisualNodeFactory.CreateNode(node);
+		StartMovingNode(visualNode);
+	}
+
+	public void StartMovingNode(VisualNode node)
+	{
+		node.IsPlaced = false;
+		current = node;
+		state = MapEditorState.MovingNode;
 	}
 
 	public void PlaceNode(Node node)
 	{
-		interactiveMap.MapNodes.Add(node);
+		// Updates the node's position to the visual's position.
+		node.PositionX = current.transform.position.x;
+		node.PositionY = current.transform.position.y;
+
+		// Tests if it is a new node or not. 
+		IEnumerable<Node> old = interactiveMap.MapNodes.Where(n => n.Id == node.Id);
+		if (old == null)
+		{
+			interactiveMap.MapNodes.Add(node);
+		}
+
+		// Resets the state. 
+		NodeEditor.StartEdit(current, node);
 		state = MapEditorState.Idle;
 		current = null;
-		editor.StopCreatingNewNode();
+		Editor.StartEditingNode();
 	}
+
 
 	public void StopPlacingNode()
 	{

@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SimpleJsonLibrary;
 
+[Serializable]
 public class InteractiveMap
 {
 	public string Name;

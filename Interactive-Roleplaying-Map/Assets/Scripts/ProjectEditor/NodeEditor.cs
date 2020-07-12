@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class NodeEditor : MonoBehaviour
 {
+	public MapEditor MapEditor;
+	public Editor Editor;
 	public InputField NameField;
 	public InputField DescriptionField;
 	public Dropdown RarityField;
@@ -26,8 +28,6 @@ public class NodeEditor : MonoBehaviour
 		NameField.text = node.Name;
 		DescriptionField.text = node.Description;
 		RarityField.value = (int)node.Rarity;
-
-		gameObject.SetActive(true);
 	}
 
 	public void StopEditing()
@@ -52,6 +52,14 @@ public class NodeEditor : MonoBehaviour
 		CloseEdit();
 	}
 
+
+	public void MoveNode()
+	{
+		gameObject.SetActive(false);
+		MapEditor.StartMovingNode(currentVisualNode);
+	}
+
+
 	public void SaveNodeChanges()
 	{
 		string name = NameField.text;
@@ -74,9 +82,8 @@ public class NodeEditor : MonoBehaviour
 
 	public void CloseEdit()
 	{
-		gameObject.SetActive(false);
-
 		currentNode = null;
 		currentVisualNode = null;
+		Editor.StopEditingNode();
 	}
 }

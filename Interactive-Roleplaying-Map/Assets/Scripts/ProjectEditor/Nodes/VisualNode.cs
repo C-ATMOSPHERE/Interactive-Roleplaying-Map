@@ -7,20 +7,27 @@ public class VisualNode : MonoBehaviour
 	private Node node;
 	private MapEditor mapEditor;
 	private NodeEditor nodeEditor;
-	private bool isPlaced;
+	private Editor editor;
 
-	public void Set(Node node, MapEditor editor, NodeEditor nodeEditor)
+	public bool IsPlaced
+	{
+		get; set;
+	}
+
+
+	public void Set(Node node, MapEditor mapEditor, NodeEditor nodeEditor, Editor editor)
 	{
 		this.node = node;
-		this.mapEditor = editor;
+		this.mapEditor = mapEditor;
 		this.nodeEditor = nodeEditor;
-		isPlaced = false;
+		this.editor = editor;
+		IsPlaced = false;
 		ApplyRarityColor();
 	}
 
 	public void OnClick()
 	{
-		if (isPlaced)
+		if (IsPlaced)
 		{
 			Interact();
 		}
@@ -28,19 +35,14 @@ public class VisualNode : MonoBehaviour
 		{
 			Place();
 		}
-	}
 
-	public void ForcePlace()
-	{
-		isPlaced = true;
+		editor.StartEditingNode();
 	}
 
 	private void Place()
 	{
-		node.PositionX = this.transform.position.x;
-		node.PositionY = this.transform.position.y;
+		IsPlaced = true;
 		mapEditor.PlaceNode(this.node);
-		isPlaced = true;
 	}
 
 	private void Interact()
@@ -57,7 +59,6 @@ public class VisualNode : MonoBehaviour
 
 	public void OnUpdate()
 	{
-		//TODO: Update things.
 		ApplyRarityColor();
 	}
 }

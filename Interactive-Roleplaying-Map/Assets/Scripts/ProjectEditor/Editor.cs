@@ -15,8 +15,15 @@ public class Editor : MonoBehaviour
 		InteractiveMapEditor.CreateNewNode();
 	}
 
-	public void StopCreatingNewNode()
+	public void StartEditingNode()
 	{
+		MiniMenu.SetActive(false);
+		NodeEditor.gameObject.SetActive(true);
+	}
+
+	public void StopEditingNode()
+	{
+		NodeEditor.gameObject.SetActive(false);
 		MiniMenu.SetActive(true);
 	}
 
