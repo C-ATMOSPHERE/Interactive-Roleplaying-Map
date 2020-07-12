@@ -33,6 +33,8 @@ public class CameraController : MonoBehaviour
         maxHeight = ReferenceImage.texture.height;
         minDepth = -(maxWidth + maxHeight) / 2;
         isInitialized = true;
+
+        transform.position = new Vector3(maxWidth / 2, maxHeight / 2, minDepth / 2);
     }
 
 
