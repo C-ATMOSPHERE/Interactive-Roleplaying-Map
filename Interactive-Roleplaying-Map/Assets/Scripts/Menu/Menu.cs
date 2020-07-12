@@ -3,16 +3,17 @@
 public class Menu : MonoBehaviour
 {
 	public GameObject CreateNewPanel;
-	public GameObject LoadPanel;
 
 	public void CreateNew()
 	{
 		CreateNewPanel.SetActive(true);
+		gameObject.SetActive(false);
 	}
 
-	public void Load()
+	public void StopCreateNew()
 	{
-		LoadPanel.SetActive(true);
+		CreateNewPanel.SetActive(false);
+		gameObject.SetActive(true);
 	}
 
 	public void Exit()

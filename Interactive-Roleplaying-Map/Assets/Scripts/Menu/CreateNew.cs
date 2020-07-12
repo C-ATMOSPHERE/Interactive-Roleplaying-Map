@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class CreateNew : MonoBehaviour
 {
+    public Menu Menu;
+
     public InputField NameField;
     public InputField SavePathField;
     public InputField FilePathField;
@@ -57,8 +59,8 @@ public class CreateNew : MonoBehaviour
 
     public void Close()
     {
-        gameObject.SetActive(false);
-
+        Menu.StopCreateNew();
+        
         NameField.text = "";
         SavePathField.text = "";
         FilePathField.text = "";
