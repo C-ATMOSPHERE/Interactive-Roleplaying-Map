@@ -208,7 +208,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColorClicked:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4290230199
   ColorUnclicked:
     serializedVersion: 2
     rgba: 4287072135
