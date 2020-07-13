@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RarityColors : MonoBehaviour
 {
 	public static RarityColors Instance;
 
+	public Color32 DefaultColor;
 	public Color32[] Colors;
 
 	private void Awake()
@@ -23,6 +21,13 @@ public class RarityColors : MonoBehaviour
 
 	public static Color32 GetColor(int i)
 	{
-		return Instance.Colors[i];
+		if(i >= Instance.Colors.Length)
+		{
+			return Instance.DefaultColor;
+		}
+		else
+		{
+			return Instance.Colors[i];
+		}
 	}
 }

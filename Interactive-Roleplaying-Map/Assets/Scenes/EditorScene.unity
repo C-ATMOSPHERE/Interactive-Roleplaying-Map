@@ -1727,7 +1727,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 887513581}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 352c29044b919f34a94a3209e3922262, type: 3}
+  m_Script: {fileID: 11500000, guid: 71fac46caaf5bfe4db735e63fa11eeae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ReferenceImage: {fileID: 517704238}
@@ -2255,7 +2255,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 974554475}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d86bb43ec3b3eb34a91ff4fd39c5c3a4, type: 3}
+  m_Script: {fileID: 11500000, guid: fe510b868f94cca4e87ec18e1e8761e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MapEditor: {fileID: 1398497673}
@@ -2263,8 +2263,8 @@ MonoBehaviour:
   NameField: {fileID: 1283671295}
   DescriptionField: {fileID: 1274102872}
   RarityField: {fileID: 1290551337}
-  OnNodeChangedMessage: Contents have been changed, do you want to save them?
-  OnNodeChangedCaption: Node Content Changed
+  OnNodeChangedMessage: The node has changed, do you want to apply these changes?
+  OnNodeChangedCaption: Node Changed
 --- !u!1 &992416245
 GameObject:
   m_ObjectHideFlags: 0
@@ -2391,7 +2391,7 @@ GameObject:
   - component: {fileID: 1018638096}
   - component: {fileID: 1018638097}
   m_Layer: 0
-  m_Name: RarityColours
+  m_Name: RarityColors
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2420,18 +2420,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1018638095}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd0e3ffe40b75284b9ad1093f2695959, type: 3}
+  m_Script: {fileID: 11500000, guid: 9f74e78866535ec4ca241c7288de4dd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DefaultColor:
+    serializedVersion: 2
+    rgba: 4294967295
   Colors:
   - serializedVersion: 2
-    rgba: 4283039488
+    rgba: 4278248708
   - serializedVersion: 2
-    rgba: 4294955008
+    rgba: 4294944256
   - serializedVersion: 2
-    rgba: 4294901939
+    rgba: 4294901997
   - serializedVersion: 2
-    rgba: 4278230271
+    rgba: 4278224639
 --- !u!1 &1022894151
 GameObject:
   m_ObjectHideFlags: 0
@@ -2626,7 +2629,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1183208259}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13781bdd8da4d5247884d2113a9f6d32, type: 3}
+  m_Script: {fileID: 11500000, guid: 91d55b2a5e4144048bdb0f81e0f0e99a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   VisualNodeContainer: {fileID: 2089164393}
@@ -3239,7 +3242,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1290551335}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17e48a37ee94e9841ba387b5c4ccca06, type: 3}
+  m_Script: {fileID: 11500000, guid: 238ac81880dbf5e4aa492742f7b8bee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Enumerator: NodeRarity
@@ -3887,7 +3890,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1453155657}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47389c233bc4d194d83d318cd52886dc, type: 3}
+  m_Script: {fileID: 11500000, guid: a77f4668ee7f4ce47b2843fe97e229f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   InteractiveMapEditor: {fileID: 1398497673}
@@ -5031,7 +5034,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2006964468}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e60e55cef827754e9e550b286263014, type: 3}
+  m_Script: {fileID: 11500000, guid: a6ef0510e7277d144ae1884f36d27918, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   VisualNodeFilter: {fileID: 1183208261}

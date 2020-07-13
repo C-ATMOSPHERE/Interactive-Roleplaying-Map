@@ -203,13 +203,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7498957164558245283}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c94c67a41979df4aad7233cfa0a9478, type: 3}
+  m_Script: {fileID: 11500000, guid: a1f9c9eb21dc1954c92afe9c0cf8a70e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ColorClicked:
     serializedVersion: 2
-    rgba: 4290230199
+    rgba: 4294967295
   ColorUnclicked:
     serializedVersion: 2
-    rgba: 4284045657
+    rgba: 4287072135
   ChildImage: {fileID: 4873028089259894752}
