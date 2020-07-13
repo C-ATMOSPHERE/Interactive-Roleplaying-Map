@@ -88,7 +88,7 @@ public class ProjectLoader : MonoBehaviour
         DialogResult result = MessageBox.Show(OnSaveProjectMessage, OnSaveProjectCaption, MessageBoxButtons.YesNoCancel);
         if (result == DialogResult.Yes)
         {
-            string mapJson = JsonUtility.ToJson(interactiveMap, true);
+            string mapJson = JsonUtility.ToJson(interactiveMap, false);
             File.WriteAllText(settings.StaticDataPath, mapJson);
 
             SimpleZipper zipper = new SimpleZipper();

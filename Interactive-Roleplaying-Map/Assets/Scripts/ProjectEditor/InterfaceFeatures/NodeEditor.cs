@@ -9,6 +9,7 @@ public class NodeEditor : MonoBehaviour
 	public InputField NameField;
 	public InputField DescriptionField;
 	public Dropdown RarityField;
+	public Dropdown TimeOfDayField;
 	public string OnNodeChangedMessage;
 	public string OnNodeChangedCaption;
 
@@ -28,6 +29,7 @@ public class NodeEditor : MonoBehaviour
 		NameField.text = node.Name;
 		DescriptionField.text = node.Description;
 		RarityField.value = (int)node.Rarity;
+		TimeOfDayField.value = (int)node.TimeOfDay;
 	}
 
 	public void StopEditing()
@@ -71,10 +73,12 @@ public class NodeEditor : MonoBehaviour
 		string name = NameField.text;
 		string description = DescriptionField.text;
 		NodeRarity rarity = (NodeRarity)RarityField.value;
+		NodeTimeOfDay timeOfDay = (NodeTimeOfDay)TimeOfDayField.value;
 
 		currentNode.Name = name;
 		currentNode.Description = description;
 		currentNode.Rarity = rarity;
+		currentNode.TimeOfDay = timeOfDay;
 
 		currentVisualNode.OnUpdate();
 

@@ -8,25 +8,33 @@ public class VisualNode : MonoBehaviour
 	private MapEditor mapEditor;
 	private NodeEditor nodeEditor;
 	private Editor editor;
+	private EnumeratedColors rarityColors;
 
 	public bool IsPlaced
 	{
 		get; set;
 	}
 
-	public NodeRarity GetRarity
+
+	public NodeRarity GetRarity()
 	{
-		get { return node.Rarity; }
+		return node.Rarity;
+	}
+
+	public NodeTimeOfDay GetTimeOfDay()
+	{
+		return node.TimeOfDay;
 	}
 
 
 
-	public void Set(Node node, MapEditor mapEditor, NodeEditor nodeEditor, Editor editor)
+	public void Set(Node node, MapEditor mapEditor, NodeEditor nodeEditor, Editor editor, EnumeratedColors rarityColors)
 	{
 		this.node = node;
 		this.mapEditor = mapEditor;
 		this.nodeEditor = nodeEditor;
 		this.editor = editor;
+		this.rarityColors = rarityColors;
 		IsPlaced = false;
 		ApplyRarityColor();
 	}
@@ -58,7 +66,7 @@ public class VisualNode : MonoBehaviour
 
 	private void ApplyRarityColor()
 	{
-		Color32 color = RarityColors.GetColor((int)node.Rarity);
+		Color32 color = rarityColors.GetColor((int)node.Rarity);
 		Image image = GetComponent<Image>();
 		image.color = color;
 	}
