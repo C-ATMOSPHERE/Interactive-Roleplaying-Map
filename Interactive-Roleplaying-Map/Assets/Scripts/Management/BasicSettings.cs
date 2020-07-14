@@ -43,7 +43,7 @@ public class BasicSettings : MonoBehaviour
 		}
 	}
 
-	public void Start()
+	public void Awake()
 	{
 		if (Instance == null)
 		{

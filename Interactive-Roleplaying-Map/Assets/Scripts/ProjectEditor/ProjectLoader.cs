@@ -10,9 +10,13 @@ public class ProjectLoader : MonoBehaviour
 {
     public RawImage MapImageTarget;
     public MapEditor InteractiveMapEditor;
+    public Editor Editor;
     public bool AllowClearAppData = true;
+
     public string OnSaveProjectMessage;
     public string OnSaveProjectCaption;
+    public string OnLoadErrorMessage;
+    public string OnLoadErrorCaption;
 
     private BasicSettings settings;
     private InteractiveMap interactiveMap;
@@ -37,13 +41,12 @@ public class ProjectLoader : MonoBehaviour
         InteractiveMapEditor.Set(interactiveMap);
     }
 
-    // TODO: This caused BSOD when triggered with the default Windows quit button, due to the System.Windows.Forms implementation.
-    public void OnApplicationQuit()
+
+    public void OnDisable()
     {
         SaveProject();
         ClearAppData();
     }
-
 
     private void CreateNewProject()
     {
@@ -53,12 +56,21 @@ public class ProjectLoader : MonoBehaviour
 
     private void LoadProjectFromPath()
     {
-        SimpleZipper zipper = new SimpleZipper();
-        byte[] data = File.ReadAllBytes(settings.MapFilePath);
-        zipper.Unzip(data, settings.StaticPath);
+        try
+        {
+            SimpleZipper zipper = new SimpleZipper();
+            byte[] data = File.ReadAllBytes(settings.MapFilePath);
+            zipper.Unzip(data, settings.StaticPath);
 
-        string dataJson = File.ReadAllText(settings.StaticDataPath);
-        interactiveMap = JsonUtility.FromJson<InteractiveMap>(dataJson);
+            string dataJson = File.ReadAllText(settings.StaticDataPath);
+            interactiveMap = JsonUtility.FromJson<InteractiveMap>(dataJson);
+        }
+        catch(Exception ex)
+        {
+            Debug.LogError(ex.Message);
+            MessageBox.Show(OnLoadErrorMessage, OnLoadErrorCaption);
+            Editor.GoToMainMenu();
+        }
     }
 
     private void LoadImage()

@@ -40,7 +40,6 @@ public class Editor : MonoBehaviour
 
 	public void GoToMainMenu()
 	{
-		SaveProject();
 		SceneManager.LoadScene((int)Scenes.MenuScene);
 	}
 

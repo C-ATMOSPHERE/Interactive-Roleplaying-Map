@@ -979,7 +979,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
@@ -2750,6 +2750,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EditorScene: 1
+--- !u!1 &1146344074
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1146344075}
+  - component: {fileID: 1146344076}
+  m_Layer: 0
+  m_Name: Project AutoLoader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1146344075
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146344074}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1146344076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146344074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a76938aaf0b1e8348bbcf01179d518a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InvalidFileLoadedMessage: Invalid file loaded at startup
+  InvalidFileLoadedCaption: Invalid File
+  EditorScene: 1
 --- !u!1 &1204071395
 GameObject:
   m_ObjectHideFlags: 0
@@ -2838,7 +2884,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1409289231}
   - component: {fileID: 1409289232}
-  - component: {fileID: 1409289233}
   m_Layer: 5
   m_Name: Panel_MainMenu
   m_TagString: Untagged
@@ -2882,21 +2927,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CreateNewPanel: {fileID: 2014400771}
   LoadPanel: {fileID: 1103206196}
---- !u!114 &1409289233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1409289230}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a76938aaf0b1e8348bbcf01179d518a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InvalidFileLoadedMessage: Invalid file loaded at startup
-  InvalidFileLoadedCaption: Invalid File
-  EditorScene: 1
 --- !u!1 &1601342139
 GameObject:
   m_ObjectHideFlags: 0
@@ -3275,7 +3305,7 @@ RectTransform:
   - {fileID: 1103206197}
   - {fileID: 2016337677}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4062,7 +4092,7 @@ PrefabInstance:
     - target: {fileID: 5127673737270482452, guid: f4f6235901d68074fb1e151dc28c5ed8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5127673737270482452, guid: f4f6235901d68074fb1e151dc28c5ed8,
         type: 3}

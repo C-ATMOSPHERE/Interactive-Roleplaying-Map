@@ -935,9 +935,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MapImageTarget: {fileID: 517704238}
   InteractiveMapEditor: {fileID: 1398497673}
+  Editor: {fileID: 1453155659}
   AllowClearAppData: 1
   OnSaveProjectMessage: Do you wish to save your project?
   OnSaveProjectCaption: Saving Project
+  OnLoadErrorMessage: File provided could not be loaded. Click OK to go to Main Menu.
+  OnLoadErrorCaption: Error
 --- !u!1 &436776766
 GameObject:
   m_ObjectHideFlags: 0

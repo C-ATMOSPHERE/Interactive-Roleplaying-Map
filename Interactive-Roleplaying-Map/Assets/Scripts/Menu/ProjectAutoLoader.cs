@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class ProjectAutoLoader : MonoBehaviour
 {
+    private static bool isLaunched = false;
+
     public string InvalidFileLoadedMessage;
     public string InvalidFileLoadedCaption;
     public Scenes EditorScene;
@@ -12,6 +14,14 @@ public class ProjectAutoLoader : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        if(isLaunched)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        isLaunched = true;
+
         string file = GetIrmFile();
         if (file != null)
         {
