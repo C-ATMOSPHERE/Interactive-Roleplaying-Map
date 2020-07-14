@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using System.Windows.Forms;
+//using System.Windows.Forms;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -33,7 +33,8 @@ public class ProjectAutoLoader : MonoBehaviour
             }
             else
             {
-                MessageBox.Show(InvalidFileLoadedMessage, InvalidFileLoadedCaption);
+                // TODO: Add Custom MessageBox
+                //MessageBox.Show(InvalidFileLoadedMessage, InvalidFileLoadedCaption);
             }
         }
     }

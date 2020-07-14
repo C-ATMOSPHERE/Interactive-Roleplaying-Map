@@ -1,9 +1,11 @@
 ﻿using Framework.Storage;
 using System;
+using System.Diagnostics;
 using System.IO;
-using System.Windows.Forms;
+//using System.Windows.Forms;
 using UnityEngine;
 using UnityEngine.UI;
+using Debug = UnityEngine.Debug;
 using JsonUtility = SimpleJsonLibrary.JsonUtility;
 
 public class ProjectLoader : MonoBehaviour
@@ -41,11 +43,9 @@ public class ProjectLoader : MonoBehaviour
         InteractiveMapEditor.Set(interactiveMap);
     }
 
-
     public void OnDisable()
     {
-        SaveProject();
-        ClearAppData();
+        EndSession();
     }
 
     private void CreateNewProject()
@@ -68,7 +68,8 @@ public class ProjectLoader : MonoBehaviour
         catch(Exception ex)
         {
             Debug.LogError(ex.Message);
-            MessageBox.Show(OnLoadErrorMessage, OnLoadErrorCaption);
+            // TODO: Add Custom MessageBox!
+            //MessageBox.Show(OnLoadErrorMessage, OnLoadErrorCaption);
             Editor.GoToMainMenu();
         }
     }
@@ -95,25 +96,32 @@ public class ProjectLoader : MonoBehaviour
         }
     }
 
+    private void EndSession()
+    {
+        SaveProject();
+        ClearAppData();
+    }
+
     public void SaveProject()
     {
-        DialogResult result = MessageBox.Show(OnSaveProjectMessage, OnSaveProjectCaption, MessageBoxButtons.YesNoCancel);
-        if (result == DialogResult.Yes)
-        {
-            string mapJson = JsonUtility.ToJson(interactiveMap, false);
-            File.WriteAllText(settings.StaticDataPath, mapJson);
+        // TODO: Implement custom MessageBox!
+        //DialogResult result = MessageBox.Show(OnSaveProjectMessage, OnSaveProjectCaption, MessageBoxButtons.YesNoCancel);
+        //if (result == DialogResult.Yes)
+        //{
+        //    string mapJson = JsonUtility.ToJson(interactiveMap, false);
+        //    File.WriteAllText(settings.StaticDataPath, mapJson);
 
-            SimpleZipper zipper = new SimpleZipper();
-            string targetPath = settings.IsNewProject
-                ? Path.ChangeExtension(
-                    Path.Combine(
-                        settings.StoragePath,
-                        settings.Name),
-                    "irm")
-                : settings.MapFilePath;
+        //    SimpleZipper zipper = new SimpleZipper();
+        //    string targetPath = settings.IsNewProject
+        //        ? Path.ChangeExtension(
+        //            Path.Combine(
+        //                settings.StoragePath,
+        //                settings.Name),
+        //            "irm")
+        //        : settings.MapFilePath;
 
-            zipper.Zip(settings.StaticPath, targetPath);
-        }
+        //    zipper.Zip(settings.StaticPath, targetPath);
+        //}
     }
 
     private void ClearAppData()

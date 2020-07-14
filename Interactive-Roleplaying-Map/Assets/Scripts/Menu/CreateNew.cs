@@ -1,5 +1,6 @@
-﻿using System.IO;
-using System.Windows.Forms;
+﻿using System;
+using System.IO;
+//using System.Windows.Forms;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -25,21 +26,24 @@ public class CreateNew : MonoBehaviour
         string name = NameField.text;
         if(!TestNameValidity(name))
         {
-            MessageBox.Show(InvalidProjectNameMessage, ErrorMessageCaption);
+            // TODO: Implement Custom MessageBox!
+            //MessageBox.Show(InvalidProjectNameMessage, ErrorMessageCaption);
             return;
         }
 
         string savePath = SavePathField.text;
         if (!Directory.Exists(savePath))
         {
-            MessageBox.Show(InvalidSavePathMessage, ErrorMessageCaption);
+            // TODO: Implement Custom MessageBox!
+            //MessageBox.Show(InvalidSavePathMessage, ErrorMessageCaption);
             return;
         }
 
         string filePath = FilePathField.text;
         if(!File.Exists(filePath))
         {
-            MessageBox.Show(InvalidFilePathMessage, ErrorMessageCaption);
+            // TODO: Implement Custom MessageBox!
+            //MessageBox.Show(InvalidFilePathMessage, ErrorMessageCaption);
             return;
         }
 
@@ -67,33 +71,45 @@ public class CreateNew : MonoBehaviour
 
     public void BrowseSaveLocation()
     {
-        using (FolderBrowserDialog folderBrowser = new FolderBrowserDialog())
-        {
-            DialogResult result = folderBrowser.ShowDialog();
-            string path = folderBrowser.SelectedPath;
+        // TODO: Implement Custom Folder Dialog!
+        //using (FolderBrowserDialog folderBrowser = new FolderBrowserDialog())
+        //{
+        //    DialogResult result = folderBrowser.ShowDialog();
+        //    string path = folderBrowser.SelectedPath;
 
-            if(result == DialogResult.OK 
-                && Directory.Exists(path))
-            {
-                SavePathField.text = path;
-            }
-        }
+        //    if(result == DialogResult.OK 
+        //        && Directory.Exists(path))
+        //    {
+        //        SavePathField.text = path;
+        //    }
+        //}
     }
 
     public void BrowseImageLocation()
     {
-        using (OpenFileDialog fileBrowser = new OpenFileDialog())
+        Action<string> onComplete = (string path) =>
         {
-            fileBrowser.Filter = @"Image Files (PSD, TIFF, JPG, TGA, PNG, GIF, BMP, IFF, PICT)|*.PSD;*.TIFF;*.JPG;*.TGA;*.PNG;*.GIF;*.BMP;*.IFF;*.PICT";
-            DialogResult result = fileBrowser.ShowDialog();
-            string path = fileBrowser.FileName;
-
-            if (result == DialogResult.OK
-                && File.Exists(path))
+            if (path != null)
             {
                 FilePathField.text = path;
             }
-        }
+        };
+
+        string[] filters = new string[] { "PSD", "TIFF", "JPG", "TGA", "PNG", "GIF", "BMP", "IFF", "PICT" };
+        FileExplorer.FileExplorer.Browse(onComplete, filters);
+
+        //using (OpenFileDialog fileBrowser = new OpenFileDialog())
+        //{
+        //    fileBrowser.Filter = @"Image Files (PSD, TIFF, JPG, TGA, PNG, GIF, BMP, IFF, PICT)|*.PSD;*.TIFF;*.JPG;*.TGA;*.PNG;*.GIF;*.BMP;*.IFF;*.PICT";
+        //    DialogResult result = fileBrowser.ShowDialog();
+        //    string path = fileBrowser.FileName;
+
+        //    if (result == DialogResult.OK
+        //        && File.Exists(path))
+        //    {
+        //        FilePathField.text = path;
+        //    }
+        //}
     }
 
     public void Close()

@@ -1,4 +1,4 @@
-﻿using System.Windows.Forms;
+﻿//using System.Windows.Forms;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,24 +34,26 @@ public class NodeEditor : MonoBehaviour
 
 	public void StopEditing()
 	{
-		if (currentNode != null && contentUpdated)
-		{
-			DialogResult result = MessageBox.Show(
-				OnNodeChangedMessage, 
-				OnNodeChangedCaption, 
-				MessageBoxButtons.YesNoCancel);
+		// TODO: Add Custom MessageBox!
 
-			if (result == DialogResult.Yes)
-			{
-				SaveNodeChanges();
-			}
-			else if (result == DialogResult.Cancel)
-			{
-				return;
-			}
-		}
+		//if (currentNode != null && contentUpdated)
+		//{
+		//	DialogResult result = MessageBox.Show(
+		//		OnNodeChangedMessage, 
+		//		OnNodeChangedCaption, 
+		//		MessageBoxButtons.YesNoCancel);
 
-		CloseEdit();
+		//	if (result == DialogResult.Yes)
+		//	{
+		//		SaveNodeChanges();
+		//	}
+		//	else if (result == DialogResult.Cancel)
+		//	{
+		//		return;
+		//	}
+		//}
+
+		//CloseEdit();
 	}
 
 
