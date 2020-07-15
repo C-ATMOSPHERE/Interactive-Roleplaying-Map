@@ -114,8 +114,16 @@ namespace UnityFileExplorer
 
         protected virtual void OnFolderClicked(string path)
         {
-            current = path;
-            CreateBodyFolders(path);
+
+            if (current == path)
+            {
+                CreateBodyFolders(path);
+            }
+            else
+            {
+                current = path;
+                inputField.text = new DirectoryInfo(path).Name;
+            }
         }
 
 

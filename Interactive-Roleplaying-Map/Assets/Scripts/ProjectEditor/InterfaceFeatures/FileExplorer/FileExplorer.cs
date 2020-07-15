@@ -72,7 +72,8 @@ namespace UnityFileExplorer
 
 		protected override void OnFolderClicked(string path)
 		{
-			base.OnFolderClicked(path);
+			current = path;
+			CreateBodyFolders(path);
 			CreateBodyFiles(path);
 		}
 

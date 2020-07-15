@@ -72,18 +72,15 @@ public class CreateNew : MonoBehaviour
 
     public void BrowseSaveLocation()
     {
-        // TODO: Implement Custom Folder Dialog!
-        //using (FolderBrowserDialog folderBrowser = new FolderBrowserDialog())
-        //{
-        //    DialogResult result = folderBrowser.ShowDialog();
-        //    string path = folderBrowser.SelectedPath;
+        Action<string> onComplete = (string path) =>
+        {
+            if (path != null)
+            {
+                SavePathField.text = path;
+            }
+        };
 
-        //    if(result == DialogResult.OK 
-        //        && Directory.Exists(path))
-        //    {
-        //        SavePathField.text = path;
-        //    }
-        //}
+        FolderExplorer.BrowseFolder(onComplete);
     }
 
     public void BrowseImageLocation()
@@ -98,19 +95,6 @@ public class CreateNew : MonoBehaviour
 
         FileExplorer.SetFilters("*", "PSD", "TIFF", "JPG", "TGA", "PNG", "GIF", "BMP", "IFF", "PICT");
         FileExplorer.BrowseFile(onComplete);
-
-        //using (OpenFileDialog fileBrowser = new OpenFileDialog())
-        //{
-        //    fileBrowser.Filter = @"Image Files (PSD, TIFF, JPG, TGA, PNG, GIF, BMP, IFF, PICT)|*.PSD;*.TIFF;*.JPG;*.TGA;*.PNG;*.GIF;*.BMP;*.IFF;*.PICT";
-        //    DialogResult result = fileBrowser.ShowDialog();
-        //    string path = fileBrowser.FileName;
-
-        //    if (result == DialogResult.OK
-        //        && File.Exists(path))
-        //    {
-        //        FilePathField.text = path;
-        //    }
-        //}
     }
 
     public void Close()
