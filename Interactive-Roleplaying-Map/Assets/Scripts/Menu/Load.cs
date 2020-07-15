@@ -22,7 +22,7 @@ public class Load : MonoBehaviour
             }
         };
 
-        FileExplorer.FileExplorer.Browse(onComplete, "IRM");
+        FileExplorer.FileExplorer.Browse(onComplete, "IRM", "*");
 
 
         //using (OpenFileDialog fileBrowser = new OpenFileDialog())

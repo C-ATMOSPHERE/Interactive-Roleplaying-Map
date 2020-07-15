@@ -10,6 +10,7 @@ namespace FileExplorer
 	{
 		[SerializeField] private DirectoryEntry entryPrefab;
 		[SerializeField] private Transform container;
+		[SerializeField] private bool moveToEnd;
 
 		private List<DirectoryEntry> pool = new List<DirectoryEntry>();
 		private int pointer = 0;
@@ -24,6 +25,12 @@ namespace FileExplorer
 
 			DirectoryEntry entry = pool[pointer];
 			entry.gameObject.SetActive(true);
+
+			if (moveToEnd)
+			{
+				entry.transform.SetAsLastSibling();
+			}
+
 			pointer++;
 
 			return entry;

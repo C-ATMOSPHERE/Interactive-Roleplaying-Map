@@ -8,6 +8,7 @@ namespace FileExplorer
     public class FileExplorer : MonoBehaviour
     {
         private static FileExplorer instance;
+        private const string AllFilesFilter = ".*";
 
         [SerializeField] private Dropdown filterDropdown;
         [SerializeField] private InputField inputField;
@@ -91,7 +92,7 @@ namespace FileExplorer
         internal void OnFileClicked(string path)
         {
             current = path;
-            inputField.text = current;
+            inputField.text = Path.GetFileName(current);
         }
 
 		#endregion
@@ -130,7 +131,9 @@ namespace FileExplorer
             string[] files = Directory.GetFiles(path);
             foreach (string file in files)
             {
-                if (Path.GetExtension(file).ToUpper() == filter)
+                FileInfo info = new FileInfo(file);
+                if ((Path.GetExtension(file).ToUpper() == filter || filter == AllFilesFilter)
+                    && (info.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
                 {
                     DirectoryEntry entry = bodyFilePool.GetNext();
                     entry.Set(file, OnFileClicked);
