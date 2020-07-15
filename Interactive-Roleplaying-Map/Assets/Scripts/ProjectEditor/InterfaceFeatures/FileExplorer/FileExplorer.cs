@@ -3,208 +3,124 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FileExplorer
+namespace UnityFileExplorer
 {
-    public class FileExplorer : MonoBehaviour
-    {
-        private static FileExplorer instance;
-        private const string AllFilesFilter = ".*";
+	internal sealed class FileExplorer : FolderExplorer
+	{
+		private static FileExplorer instance;
+		private const string AllFilesFilter = ".*";
 
-        [SerializeField] private Dropdown filterDropdown;
-        [SerializeField] private InputField inputField;
+		[Space, SerializeField] private Dropdown filterDropdown;
+		[SerializeField] private DirectoryEntryPool bodyFilePool;
 
-        [SerializeField] private DirectoryEntryPool bodyFolderPool;
-        [SerializeField] private DirectoryEntryPool bodyFilePool;
-        [SerializeField] private DirectoryEntryPool sidePanelFolderPool;
-
-        private Action<string> onComplete;
-        private string[] filters;
-        private int currentFilter = 0; 
-
-        private string current;
-
-        private void Awake()
-        {
-            if (instance == null)
-            {
-                instance = this;
-                instance.gameObject.SetActive(false);
-            }
-            else
-            {
-                throw new DuplicateSingletonException("FileExplorer");
-            }
-        }
+		private string[] filters;
+		private int currentFilter;
 
 
-        public static void Browse(Action<string> onComplete, params string[] filters)
-        {
-            instance.StartFileBrowser(onComplete, filters);
-        }
+		public static void BrowseFile(Action<string> onComplete)
+		{
+			instance.StartBrowse(onComplete);
+		}
+
+		public static void SetFilters(params string[] filters)
+		{
+			instance.filters = filters;
+		}
 
 
-        private void StartFileBrowser(Action<string> onComplete, string[] filters)
-        {
-            this.onComplete = onComplete;
-
-            SetFilters(filters);
-            CreateSidePanelContent();
-            CreateBodyContent(current);
-
-            instance.gameObject.SetActive(true);
-        }
-
-
-        private void SetFilters(string[] filters)
-        {
-            filterDropdown.options.Clear();
-
-            for(int i = 0; i < filters.Length; i++)
-            {
-                if(filters[i][0] != '.')
-                {
-                    filters[i] = '.' + filters[i];
-                }
-
-                Dropdown.OptionData data = new Dropdown.OptionData(filters[i]);
-                filterDropdown.options.Add(data);
-            }
-
-            this.filters = filters;
-        }
-
-        private void Exit()
-        {
-            onComplete.Invoke(current);
-            instance.gameObject.SetActive(false);
-            ClearExplorer();
-        }
+		protected override void Awake()
+		{
+			if (instance == null)
+			{
+				instance = this;
+				instance.gameObject.SetActive(false);
+			}
+			else
+			{
+				throw new DuplicateSingletonException("File Explorer");
+			}
+		}
 
 
-		#region DirectoryEntry Methods
-
-        internal void OnFolderClicked(string path)
-        {
-            current = path;
-            CreateBodyContent(path);
-        }
-
-        internal void OnFileClicked(string path)
-        {
-            current = path;
-            inputField.text = Path.GetFileName(current);
-        }
-
-		#endregion
+		protected override void StartBrowse(Action<string> onComplete)
+		{
+			base.StartBrowse(onComplete);
+			CreateFilters(filters);
+			CreateBodyFiles(current);
+		}
 
 
-		#region Visual Management
+		private void CreateFilters(string[] filters)
+		{
+			filterDropdown.options.Clear();
 
-		private void CreateBodyContent(string path)
-        {
-            CreateBodyContentFolders(path);
-            CreateBodyContentFiles(path);
-        }
+			for (int i = 0; i < filters.Length; i++)
+			{
+				if (filters[i][0] != '.')
+				{
+					filters[i] = '.' + filters[i];
+				}
 
-        private void CreateBodyContentFolders(string path)
-        {
-            bodyFolderPool.DisableAll();
+				Dropdown.OptionData data = new Dropdown.OptionData(filters[i]);
+				filterDropdown.options.Add(data);
+			}
 
-            string[] directories = Directory.GetDirectories(path);
-
-            foreach (string dir in directories)
-            {
-                DirectoryInfo info = new DirectoryInfo(dir);
-                if((info.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
-                {
-                    DirectoryEntry entry = bodyFolderPool.GetNext();
-                    entry.Set(dir, OnFolderClicked);
-                }
-            }
-        }
-
-        private void CreateBodyContentFiles(string path)
-        {
-            bodyFilePool.DisableAll();
-
-            string filter = filters[currentFilter];
-            string[] files = Directory.GetFiles(path);
-            foreach (string file in files)
-            {
-                FileInfo info = new FileInfo(file);
-                if ((Path.GetExtension(file).ToUpper() == filter || filter == AllFilesFilter)
-                    && (info.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
-                {
-                    DirectoryEntry entry = bodyFilePool.GetNext();
-                    entry.Set(file, OnFileClicked);
-                }
-            }
-        }
-
-        private void CreateSidePanelContent()
-        {
-            sidePanelFolderPool.DisableAll();
-
-            DriveInfo[] drives = DriveInfo.GetDrives();
-
-            foreach(DriveInfo drive in drives)
-            {
-                DirectoryEntry entry = sidePanelFolderPool.GetNext();
-                entry.Set(drive.Name, OnFolderClicked);
-            }
-
-            current = drives[0].Name;
-        }
-        
-        private void ClearExplorer()
-        {
-            sidePanelFolderPool.DisableAll();
-            bodyFolderPool.DisableAll();
-            bodyFilePool.DisableAll();
-        }
-
-		#endregion
+			this.filters = filters;
+		}
 
 
-		#region Button Calls
 
-		public void ButtonClose()
-        {
-            current = null;
-            Exit();
-        }
+		protected override void OnFolderClicked(string path)
+		{
+			base.OnFolderClicked(path);
+			CreateBodyFiles(path);
+		}
 
-        public void ButtonMoveBack()
-        {
-            string next = Path.GetDirectoryName(current);
-            if (Directory.Exists(next))
-            {
-                current = next;
-                CreateBodyContent(current);
-            }
-        }
+		private void OnFileClicked(string path)
+		{
+			current = path;
+			inputField.text = Path.GetFileName(current);
+		}
 
-        public void ButtonMoveForth()
-        {
 
-        }
+		private void CreateBodyFiles(string path)
+		{
+			if (!bodyFilePool.IsSet)
+			{
+				return;
+			}
 
-        public void ButtonSelect()
-        {
-            Exit();
-        }
+			bodyFilePool.DisableAll();
 
-        public void ButtonCancel()
-        {
-            ButtonClose();
-        }
+			string filter = filters[currentFilter];
+			string[] files = Directory.GetFiles(path);
+			foreach (string file in files)
+			{
+				FileInfo info = new FileInfo(file);
+				if ((Path.GetExtension(file).ToUpper() == filter || filter == AllFilesFilter)
+					&& (info.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
+				{
+					DirectoryEntry entry = bodyFilePool.GetNext();
+					entry.Set(file, OnFileClicked);
+				}
+			}
+		}
 
-        public void DropdownFilterChanged()
-        {
-            currentFilter = filterDropdown.value;
-            CreateBodyContent(current);
-        }
 
-        #endregion
-    }
+		protected override void ClearExplorer()
+		{
+			base.ClearExplorer();
+			if (bodyFilePool.IsSet)
+			{
+				bodyFilePool.DisableAll();
+			}
+		}
+
+
+		public void DropdownFilterChanged()
+		{
+			currentFilter = filterDropdown.value;
+			CreateBodyFiles(current);
+		}
+	}
 }

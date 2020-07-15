@@ -1,4 +1,5 @@
-﻿using System;
+﻿using UnityFileExplorer;
+using System;
 using System.IO;
 //using System.Windows.Forms;
 using UnityEngine;
@@ -95,8 +96,8 @@ public class CreateNew : MonoBehaviour
             }
         };
 
-        string[] filters = new string[] { "PSD", "TIFF", "JPG", "TGA", "PNG", "GIF", "BMP", "IFF", "PICT" };
-        FileExplorer.FileExplorer.Browse(onComplete, filters);
+        FileExplorer.SetFilters("*", "PSD", "TIFF", "JPG", "TGA", "PNG", "GIF", "BMP", "IFF", "PICT");
+        FileExplorer.BrowseFile(onComplete);
 
         //using (OpenFileDialog fileBrowser = new OpenFileDialog())
         //{

@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FileExplorer
+namespace UnityFileExplorer
 {
 	internal class BodyFolder : DirectoryEntry
 	{
@@ -14,7 +14,10 @@ namespace FileExplorer
 			DirectoryInfo directory = new DirectoryInfo(path);
 			label.text = directory.Name;
 			lastModifiedOn.text = directory.LastWriteTime.ToString();
-			type.text = "File folder";
+			if (type != null)
+			{
+				type.text = "File folder";
+			}
 		}
 	}
 }

@@ -1497,7 +1497,7 @@ RectTransform:
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &4390591950953903254
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5079,8 +5079,8 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 0
   m_TargetGraphic: {fileID: 9035978284981190682}
-  m_TextComponent: {fileID: 0}
-  m_Placeholder: {fileID: 0}
+  m_TextComponent: {fileID: 3664438008856502692}
+  m_Placeholder: {fileID: 7811643761223415082}
   m_ContentType: 0
   m_InputType: 0
   m_AsteriskChar: 42
@@ -5735,20 +5735,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d74d699dae70e4448081da78b367b79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filterDropdown: {fileID: 9035978286035277874}
   inputField: {fileID: 9035978284981190685}
   bodyFolderPool:
     entryPrefab: {fileID: 6312179972317424334}
     container: {fileID: 8779985831966790467}
     moveToEnd: 0
-  bodyFilePool:
-    entryPrefab: {fileID: 8564639843106146436}
-    container: {fileID: 8779985831966790467}
-    moveToEnd: 1
   sidePanelFolderPool:
     entryPrefab: {fileID: 8633803446080311313}
     container: {fileID: 8561236900961406099}
     moveToEnd: 0
+  filterDropdown: {fileID: 9035978286035277874}
+  bodyFilePool:
+    entryPrefab: {fileID: 8564639843106146436}
+    container: {fileID: 8779985831966790467}
+    moveToEnd: 1
 --- !u!1 &9035978285830439308
 GameObject:
   m_ObjectHideFlags: 0

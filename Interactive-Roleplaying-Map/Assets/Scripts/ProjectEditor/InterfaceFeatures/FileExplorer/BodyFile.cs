@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FileExplorer
+namespace UnityFileExplorer
 {
 	internal class BodyFile : DirectoryEntry
 	{

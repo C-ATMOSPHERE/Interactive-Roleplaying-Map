@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityFileExplorer;
+using UnityEngine;
 using System.IO;
 using UnityEngine.SceneManagement;
 using System;
@@ -22,7 +23,8 @@ public class Load : MonoBehaviour
             }
         };
 
-        FileExplorer.FileExplorer.Browse(onComplete, "IRM", "*");
+        FileExplorer.SetFilters("IRM", "*");
+        FileExplorer.BrowseFile(onComplete);
 
 
         //using (OpenFileDialog fileBrowser = new OpenFileDialog())

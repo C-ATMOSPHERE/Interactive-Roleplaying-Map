@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-namespace FileExplorer
+namespace UnityFileExplorer
 {
 	[Serializable]
 	internal class DirectoryEntryPool
@@ -14,6 +14,18 @@ namespace FileExplorer
 
 		private List<DirectoryEntry> pool = new List<DirectoryEntry>();
 		private int pointer = 0;
+		private Action onClick;
+
+
+		internal bool IsSet
+		{
+			get { return entryPrefab != null && container != null; }
+		}
+
+		internal void SetOnClick(Action onClick)
+		{
+			this.onClick = onClick;
+		}
 
 		internal DirectoryEntry GetNext()
 		{
