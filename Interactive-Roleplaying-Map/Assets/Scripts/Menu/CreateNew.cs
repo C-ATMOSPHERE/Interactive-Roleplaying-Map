@@ -27,24 +27,21 @@ public class CreateNew : MonoBehaviour
         string name = NameField.text;
         if(!TestNameValidity(name))
         {
-            // TODO: Implement Custom MessageBox!
-            //MessageBox.Show(InvalidProjectNameMessage, ErrorMessageCaption);
+            MessageBox.ShowMessage(MessageType.OK, null, InvalidProjectNameMessage, ErrorMessageCaption);
             return;
         }
 
         string savePath = SavePathField.text;
         if (!Directory.Exists(savePath))
         {
-            // TODO: Implement Custom MessageBox!
-            //MessageBox.Show(InvalidSavePathMessage, ErrorMessageCaption);
+            MessageBox.ShowMessage(MessageType.OK, null, InvalidSavePathMessage, ErrorMessageCaption);
             return;
         }
 
         string filePath = FilePathField.text;
         if(!File.Exists(filePath))
         {
-            // TODO: Implement Custom MessageBox!
-            //MessageBox.Show(InvalidFilePathMessage, ErrorMessageCaption);
+            MessageBox.ShowMessage(MessageType.OK, null, InvalidFilePathMessage, ErrorMessageCaption);
             return;
         }
 

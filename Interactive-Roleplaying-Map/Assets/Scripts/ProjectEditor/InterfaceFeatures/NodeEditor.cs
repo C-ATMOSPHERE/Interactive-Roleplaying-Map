@@ -1,6 +1,8 @@
 ﻿//using System.Windows.Forms;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityFileExplorer;
 
 public class NodeEditor : MonoBehaviour
 {
@@ -32,28 +34,35 @@ public class NodeEditor : MonoBehaviour
 		TimeOfDayField.value = (int)node.TimeOfDay;
 	}
 
+	private void InitializeWithnewNode(VisualNode visualNode, Node node)
+	{
+		//TODO: Continue here. 
+	}
+
 	public void StopEditing()
 	{
-		// TODO: Add Custom MessageBox!
+		if (currentNode != null && contentUpdated)
+		{
+			Action<MessageResult> onComplete = (MessageResult result) =>
+			{
+				if (result == MessageResult.Yes)
+				{
+					SaveNodeChanges();
+				}
+				else if (result == MessageResult.Cancel)
+				{
+					return;
+				}
 
-		//if (currentNode != null && contentUpdated)
-		//{
-		//	DialogResult result = MessageBox.Show(
-		//		OnNodeChangedMessage, 
-		//		OnNodeChangedCaption, 
-		//		MessageBoxButtons.YesNoCancel);
+				CloseEdit();
+			};
 
-		//	if (result == DialogResult.Yes)
-		//	{
-		//		SaveNodeChanges();
-		//	}
-		//	else if (result == DialogResult.Cancel)
-		//	{
-		//		return;
-		//	}
-		//}
-
-		//CloseEdit();
+			MessageBox.ShowMessage(MessageType.YesNoCancel, onComplete, OnNodeChangedMessage, OnNodeChangedCaption);
+		}
+		else
+		{
+			CloseEdit();
+		}
 	}
 
 

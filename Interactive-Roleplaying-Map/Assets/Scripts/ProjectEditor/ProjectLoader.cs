@@ -1,11 +1,9 @@
 ﻿using Framework.Storage;
 using System;
-using System.Diagnostics;
 using System.IO;
-//using System.Windows.Forms;
 using UnityEngine;
 using UnityEngine.UI;
-using Debug = UnityEngine.Debug;
+using UnityFileExplorer;
 using JsonUtility = SimpleJsonLibrary.JsonUtility;
 
 public class ProjectLoader : MonoBehaviour
@@ -30,12 +28,10 @@ public class ProjectLoader : MonoBehaviour
 
         if (settings.IsNewProject)
         {
-            Debug.Log("Loading New Project!");
             CreateNewProject();
         }
         else
         {
-            Debug.Log("Loading Existing Project!");
             LoadProjectFromPath();
         }
 
@@ -68,9 +64,12 @@ public class ProjectLoader : MonoBehaviour
         catch(Exception ex)
         {
             Debug.LogError(ex.Message);
-            // TODO: Add Custom MessageBox!
-            //MessageBox.Show(OnLoadErrorMessage, OnLoadErrorCaption);
-            Editor.GoToMainMenu();
+            Action<MessageResult> onComplete = (MessageResult result) =>
+            {
+                Editor.GoToMainMenu();
+            };
+
+            MessageBox.ShowMessage(MessageType.OK, onComplete, OnLoadErrorMessage, OnLoadErrorCaption);
         }
     }
 
@@ -104,24 +103,27 @@ public class ProjectLoader : MonoBehaviour
 
     public void SaveProject()
     {
-        // TODO: Implement custom MessageBox!
-        //DialogResult result = MessageBox.Show(OnSaveProjectMessage, OnSaveProjectCaption, MessageBoxButtons.YesNoCancel);
-        //if (result == DialogResult.Yes)
-        //{
-        //    string mapJson = JsonUtility.ToJson(interactiveMap, false);
-        //    File.WriteAllText(settings.StaticDataPath, mapJson);
+        Action<MessageResult> onComplete = (MessageResult result) =>
+        {
+            if (result == MessageResult.Yes)
+            {
+                string mapJson = JsonUtility.ToJson(interactiveMap, false);
+                File.WriteAllText(settings.StaticDataPath, mapJson);
 
-        //    SimpleZipper zipper = new SimpleZipper();
-        //    string targetPath = settings.IsNewProject
-        //        ? Path.ChangeExtension(
-        //            Path.Combine(
-        //                settings.StoragePath,
-        //                settings.Name),
-        //            "irm")
-        //        : settings.MapFilePath;
+                SimpleZipper zipper = new SimpleZipper();
+                string targetPath = settings.IsNewProject
+                    ? Path.ChangeExtension(
+                        Path.Combine(
+                            settings.StoragePath,
+                            settings.Name),
+                        "irm")
+                    : settings.MapFilePath;
 
-        //    zipper.Zip(settings.StaticPath, targetPath);
-        //}
+                zipper.Zip(settings.StaticPath, targetPath);
+            }
+        };
+
+        MessageBox.ShowMessage(MessageType.YesNoCancel, onComplete, OnSaveProjectMessage, OnSaveProjectCaption);
     }
 
     private void ClearAppData()

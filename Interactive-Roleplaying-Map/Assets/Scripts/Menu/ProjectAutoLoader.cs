@@ -2,6 +2,7 @@
 //using System.Windows.Forms;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityFileExplorer;
 
 public class ProjectAutoLoader : MonoBehaviour
 {
@@ -33,8 +34,7 @@ public class ProjectAutoLoader : MonoBehaviour
             }
             else
             {
-                // TODO: Add Custom MessageBox
-                //MessageBox.Show(InvalidFileLoadedMessage, InvalidFileLoadedCaption);
+                MessageBox.ShowMessage(MessageType.OK, null, InvalidFileLoadedMessage, InvalidFileLoadedCaption);
             }
         }
     }
