@@ -125,6 +125,10 @@ public class ProjectLoader : MonoBehaviour
 
                 Editor.SessionEnded();
             }
+            else
+            {
+                endingSession = false;
+            }
         };
 
         MessageBox.ShowMessage(MessageType.YesNoCancel, onComplete, OnSaveProjectMessage, OnSaveProjectCaption);
