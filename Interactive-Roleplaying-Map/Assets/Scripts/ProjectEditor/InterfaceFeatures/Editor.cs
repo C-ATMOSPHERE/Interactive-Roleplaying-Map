@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Editor : MonoBehaviour
@@ -33,9 +34,12 @@ public class Editor : MonoBehaviour
 
 	public void SaveProject()
 	{
-		NodeEditor.StopEditing();
-		MapEditor.StopEditing();
-		ProjectLoader.SaveProject();
+		Action onStop = delegate
+		{
+			MapEditor.StopEditing();
+			ProjectLoader.SaveProject();
+		};
+		NodeEditor.StopEditing(onStop);
 	}
 
 	public void GoToMainMenu()

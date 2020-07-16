@@ -1,4 +1,4 @@
-﻿//using System.Windows.Forms;
+﻿using JetBrains.Annotations;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,9 +22,23 @@ public class NodeEditor : MonoBehaviour
 
 	public void StartEdit(VisualNode visualNode, Node node)
 	{
-		StopEditing(); 
+		if (contentUpdated)
+		{
+			StopEditing(delegate 
+			{ 
+				InitializeNewNode(visualNode, node);
+				Editor.StartEditingNode();
+			});
+		}
+		else
+		{
+			InitializeNewNode(visualNode, node);
+		}
+	}
 
-		this.contentUpdated = false; 
+
+	private void InitializeNewNode(VisualNode visualNode, Node node)
+	{
 		this.currentVisualNode = visualNode;
 		this.currentNode = node;
 
@@ -32,14 +46,15 @@ public class NodeEditor : MonoBehaviour
 		DescriptionField.text = node.Description;
 		RarityField.value = (int)node.Rarity;
 		TimeOfDayField.value = (int)node.TimeOfDay;
-	}
-
-	private void InitializeWithnewNode(VisualNode visualNode, Node node)
-	{
-		//TODO: Continue here. 
+		this.contentUpdated = false;
 	}
 
 	public void StopEditing()
+	{
+		StopEditing(null);
+	}
+
+	public void StopEditing(Action afterStop)
 	{
 		if (currentNode != null && contentUpdated)
 		{
@@ -55,6 +70,10 @@ public class NodeEditor : MonoBehaviour
 				}
 
 				CloseEdit();
+				if (afterStop != null)
+				{
+					afterStop.Invoke();
+				}
 			};
 
 			MessageBox.ShowMessage(MessageType.YesNoCancel, onComplete, OnNodeChangedMessage, OnNodeChangedCaption);
