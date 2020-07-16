@@ -44,11 +44,11 @@ public class Editor : MonoBehaviour
 
 	public void GoToMainMenu()
 	{
-		SceneManager.LoadScene((int)Scenes.MenuScene);
+		ProjectLoader.EndSession();
 	}
 
-	public void Quit()
+	public void SessionEnded()
 	{
-		Application.Quit();
+		SceneManager.LoadScene((int)Scenes.MenuScene);
 	}
 }

@@ -21,6 +21,7 @@ public class ProjectLoader : MonoBehaviour
     private BasicSettings settings;
     private InteractiveMap interactiveMap;
 
+    private bool endingSession = false;
 
     private void Start()
     {
@@ -39,10 +40,6 @@ public class ProjectLoader : MonoBehaviour
         InteractiveMapEditor.Set(interactiveMap);
     }
 
-    public void OnDisable()
-    {
-        EndSession();
-    }
 
     private void CreateNewProject()
     {
@@ -95,10 +92,10 @@ public class ProjectLoader : MonoBehaviour
         }
     }
 
-    private void EndSession()
+    public void EndSession()
     {
+        endingSession = true;
         SaveProject();
-        ClearAppData();
     }
 
     public void SaveProject()
@@ -120,6 +117,13 @@ public class ProjectLoader : MonoBehaviour
                     : settings.MapFilePath;
 
                 zipper.Zip(settings.StaticPath, targetPath);
+
+                if (endingSession)
+                {
+                    ClearAppData();
+                } 
+
+                Editor.SessionEnded();
             }
         };
 
