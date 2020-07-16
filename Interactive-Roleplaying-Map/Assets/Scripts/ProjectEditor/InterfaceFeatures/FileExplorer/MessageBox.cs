@@ -21,6 +21,7 @@ namespace UnityFileExplorer
 		[SerializeField] private Text Caption;
 		[SerializeField] private Text Message;
 		[SerializeField] private MessageBoxButton[] buttons;
+		[SerializeField] private GameObject screenBlocker;
 
 		private Action<MessageResult> onComplete;
 
@@ -56,6 +57,7 @@ namespace UnityFileExplorer
 			string caption)
 		{
 			gameObject.SetActive(true);
+			screenBlocker.SetActive(true);
 
 			this.onComplete = onComplete;
 			Message.text = message;
@@ -82,7 +84,9 @@ namespace UnityFileExplorer
 		private void ShowMessage(MessageResult result)
 		{
 			gameObject.SetActive(false);
-			if(onComplete != null)
+			screenBlocker.SetActive(false);
+
+			if (onComplete != null)
 			{
 				onComplete.Invoke(result);
 			}

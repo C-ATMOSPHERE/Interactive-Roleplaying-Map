@@ -12,6 +12,7 @@ namespace UnityFileExplorer
         [SerializeField] protected InputField inputField;
         [SerializeField] protected DirectoryEntryPool bodyFolderPool;
         [SerializeField] protected DirectoryEntryPool sidePanelFolderPool;
+        [SerializeField] protected GameObject screenBlocker;
 
         protected Action<string> onComplete;
         protected string current;
@@ -41,6 +42,7 @@ namespace UnityFileExplorer
         {
             this.onComplete = onComplete;
 
+            screenBlocker.SetActive(true);
             gameObject.SetActive(true);
 
             CreateSidePanelContent(out current);
@@ -94,6 +96,7 @@ namespace UnityFileExplorer
         protected void Exit()
         {
             gameObject.SetActive(false);
+            screenBlocker.SetActive(false);
             onComplete.Invoke(current);
             ClearExplorer();
         }
