@@ -8,6 +8,13 @@ public class Menu : MonoBehaviour
 	public void CreateNew()
 	{
 		CreateNewPanel.SetActive(true);
+		gameObject.SetActive(false);
+	}
+
+	public void StopCreateNew()
+	{
+		CreateNewPanel.SetActive(false);
+		gameObject.SetActive(true);
 	}
 
 	public void Load()

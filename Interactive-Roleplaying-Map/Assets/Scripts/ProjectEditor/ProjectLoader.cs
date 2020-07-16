@@ -1,22 +1,27 @@
 ﻿using Framework.Storage;
 using System;
 using System.IO;
-using System.Windows.Forms;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityFileExplorer;
 using JsonUtility = SimpleJsonLibrary.JsonUtility;
 
 public class ProjectLoader : MonoBehaviour
 {
     public RawImage MapImageTarget;
     public MapEditor InteractiveMapEditor;
+    public Editor Editor;
     public bool AllowClearAppData = true;
+
     public string OnSaveProjectMessage;
     public string OnSaveProjectCaption;
+    public string OnLoadErrorMessage;
+    public string OnLoadErrorCaption;
 
     private BasicSettings settings;
     private InteractiveMap interactiveMap;
 
+    private bool endingSession = false;
 
     private void Start()
     {
@@ -24,24 +29,15 @@ public class ProjectLoader : MonoBehaviour
 
         if (settings.IsNewProject)
         {
-            Debug.Log("Loading New Project!");
             CreateNewProject();
         }
         else
         {
-            Debug.Log("Loading Existing Project!");
             LoadProjectFromPath();
         }
 
         LoadImage();
         InteractiveMapEditor.Set(interactiveMap);
-    }
-
-    // TODO: This caused BSOD when triggered with the default Windows quit button, due to the System.Windows.Forms implementation.
-    public void OnApplicationQuit()
-    {
-        SaveProject();
-        ClearAppData();
     }
 
 
@@ -53,12 +49,25 @@ public class ProjectLoader : MonoBehaviour
 
     private void LoadProjectFromPath()
     {
-        SimpleZipper zipper = new SimpleZipper();
-        byte[] data = File.ReadAllBytes(settings.MapFilePath);
-        zipper.Unzip(data, settings.StaticPath);
+        try
+        {
+            SimpleZipper zipper = new SimpleZipper();
+            byte[] data = File.ReadAllBytes(settings.MapFilePath);
+            zipper.Unzip(data, settings.StaticPath);
 
-        string dataJson = File.ReadAllText(settings.StaticDataPath);
-        interactiveMap = JsonUtility.FromJson<InteractiveMap>(dataJson);
+            string dataJson = File.ReadAllText(settings.StaticDataPath);
+            interactiveMap = JsonUtility.FromJson<InteractiveMap>(dataJson);
+        }
+        catch(Exception ex)
+        {
+            Debug.LogError(ex.Message);
+            Action<MessageResult> onComplete = (MessageResult result) =>
+            {
+                Editor.GoToMainMenu();
+            };
+
+            MessageBox.ShowMessage(MessageType.OK, onComplete, OnLoadErrorMessage, OnLoadErrorCaption);
+        }
     }
 
     private void LoadImage()
@@ -83,25 +92,46 @@ public class ProjectLoader : MonoBehaviour
         }
     }
 
+    public void EndSession()
+    {
+        endingSession = true;
+        SaveProject();
+    }
+
     public void SaveProject()
     {
-        DialogResult result = MessageBox.Show(OnSaveProjectMessage, OnSaveProjectCaption, MessageBoxButtons.YesNoCancel);
-        if (result == DialogResult.Yes)
+        Action<MessageResult> onComplete = (MessageResult result) =>
         {
-            string mapJson = JsonUtility.ToJson(interactiveMap, true);
-            File.WriteAllText(settings.StaticDataPath, mapJson);
+            if (result == MessageResult.Yes)
+            {
+                string mapJson = JsonUtility.ToJson(interactiveMap, false);
+                File.WriteAllText(settings.StaticDataPath, mapJson);
 
-            SimpleZipper zipper = new SimpleZipper();
-            string targetPath = settings.IsNewProject
-                ? Path.ChangeExtension(
-                    Path.Combine(
-                        settings.StoragePath,
-                        settings.Name),
-                    "irm")
-                : settings.MapFilePath;
+                SimpleZipper zipper = new SimpleZipper();
+                string targetPath = settings.IsNewProject
+                    ? Path.ChangeExtension(
+                        Path.Combine(
+                            settings.StoragePath,
+                            settings.Name),
+                        "irm")
+                    : settings.MapFilePath;
 
-            zipper.Zip(settings.StaticPath, targetPath);
-        }
+                zipper.Zip(settings.StaticPath, targetPath);
+
+                if (endingSession)
+                {
+                    ClearAppData();
+                } 
+
+                Editor.SessionEnded();
+            }
+            else
+            {
+                endingSession = false;
+            }
+        };
+
+        MessageBox.ShowMessage(MessageType.YesNoCancel, onComplete, OnSaveProjectMessage, OnSaveProjectCaption);
     }
 
     private void ClearAppData()

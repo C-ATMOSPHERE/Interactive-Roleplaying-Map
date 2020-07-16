@@ -1,6 +1,7 @@
-﻿using System.Windows.Forms;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityFileExplorer;
 
 public class NodeEditor : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class NodeEditor : MonoBehaviour
 	public InputField NameField;
 	public InputField DescriptionField;
 	public Dropdown RarityField;
+	public Dropdown TimeOfDayField;
 	public string OnNodeChangedMessage;
 	public string OnNodeChangedCaption;
 
@@ -19,37 +21,66 @@ public class NodeEditor : MonoBehaviour
 
 	public void StartEdit(VisualNode visualNode, Node node)
 	{
-		StopEditing(); 
+		if (contentUpdated)
+		{
+			StopEditing(delegate 
+			{ 
+				InitializeNewNode(visualNode, node);
+				Editor.StartEditingNode();
+			});
+		}
+		else
+		{
+			InitializeNewNode(visualNode, node);
+		}
+	}
 
-		this.contentUpdated = false; 
+
+	private void InitializeNewNode(VisualNode visualNode, Node node)
+	{
 		this.currentVisualNode = visualNode;
 		this.currentNode = node;
 
 		NameField.text = node.Name;
 		DescriptionField.text = node.Description;
 		RarityField.value = (int)node.Rarity;
+		TimeOfDayField.value = (int)node.TimeOfDay;
+		this.contentUpdated = false;
 	}
 
 	public void StopEditing()
 	{
+		StopEditing(null);
+	}
+
+	public void StopEditing(Action afterStop)
+	{
 		if (currentNode != null && contentUpdated)
 		{
-			DialogResult result = MessageBox.Show(
-				OnNodeChangedMessage, 
-				OnNodeChangedCaption, 
-				MessageBoxButtons.YesNoCancel);
+			Action<MessageResult> onComplete = (MessageResult result) =>
+			{
+				if (result == MessageResult.Yes)
+				{
+					SaveNodeChanges();
+				}
+				else if (result == MessageResult.Cancel)
+				{
+					return;
+				}
 
-			if (result == DialogResult.Yes)
-			{
-				SaveNodeChanges();
-			}
-			else if (result == DialogResult.Cancel)
-			{
-				return;
-			}
+				CloseEdit();
+				if (afterStop != null)
+				{
+					afterStop.Invoke();
+				}
+			};
+
+			MessageBox.ShowMessage(MessageType.YesNoCancel, onComplete, OnNodeChangedMessage, OnNodeChangedCaption);
 		}
-
-		CloseEdit();
+		else
+		{
+			CloseEdit();
+		}
 	}
 
 
@@ -71,10 +102,12 @@ public class NodeEditor : MonoBehaviour
 		string name = NameField.text;
 		string description = DescriptionField.text;
 		NodeRarity rarity = (NodeRarity)RarityField.value;
+		NodeTimeOfDay timeOfDay = (NodeTimeOfDay)TimeOfDayField.value;
 
 		currentNode.Name = name;
 		currentNode.Description = description;
 		currentNode.Rarity = rarity;
+		currentNode.TimeOfDay = timeOfDay;
 
 		currentVisualNode.OnUpdate();
 

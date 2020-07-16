@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Editor : MonoBehaviour
@@ -8,6 +9,8 @@ public class Editor : MonoBehaviour
 	public NodeEditor NodeEditor;
 	public MapEditor MapEditor;
 	public ProjectLoader ProjectLoader;
+	public CameraController CameraController;
+
 
 	public void CreateNewNode()
 	{
@@ -19,29 +22,33 @@ public class Editor : MonoBehaviour
 	{
 		MiniMenu.SetActive(false);
 		NodeEditor.gameObject.SetActive(true);
+		CameraController.CanMove = false;
 	}
 
 	public void StopEditingNode()
 	{
 		NodeEditor.gameObject.SetActive(false);
 		MiniMenu.SetActive(true);
+		CameraController.CanMove = true;
 	}
 
 	public void SaveProject()
 	{
-		NodeEditor.StopEditing();
-		MapEditor.StopEditing();
-		ProjectLoader.SaveProject();
+		Action onStop = delegate
+		{
+			MapEditor.StopEditing();
+			ProjectLoader.SaveProject();
+		};
+		NodeEditor.StopEditing(onStop);
 	}
 
 	public void GoToMainMenu()
 	{
-		SaveProject();
-		SceneManager.LoadScene((int)Scenes.MenuScene);
+		ProjectLoader.EndSession();
 	}
 
-	public void Quit()
+	public void SessionEnded()
 	{
-		Application.Quit();
+		SceneManager.LoadScene((int)Scenes.MenuScene);
 	}
 }

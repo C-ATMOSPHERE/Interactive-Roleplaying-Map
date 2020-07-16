@@ -16,6 +16,7 @@ public class CameraController : MonoBehaviour
     private float maxHeight;
     private float minDepth;
 
+    public bool CanMove = true;
 
     private void Start()
     {
@@ -33,13 +34,15 @@ public class CameraController : MonoBehaviour
         maxHeight = ReferenceImage.texture.height;
         minDepth = -(maxWidth + maxHeight) / 2;
         isInitialized = true;
+
+        transform.position = new Vector3(maxWidth / 2, maxHeight / 2, minDepth / 2);
     }
 
 
     // Update is called once per frame
     private void Update()
     {
-        if (!isInitialized)
+        if (!isInitialized || !CanMove)
             return;
 
         Move();

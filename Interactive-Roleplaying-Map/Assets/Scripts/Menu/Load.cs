@@ -1,22 +1,18 @@
-﻿using UnityEngine;
-using System.Windows.Forms;
+﻿using UnityFileExplorer;
+using UnityEngine;
 using System.IO;
 using UnityEngine.SceneManagement;
+using System;
 
 public class Load : MonoBehaviour
 {
     public Scenes EditorScene;
 
 	public void OnEnable()
-	{
-        using (OpenFileDialog fileBrowser = new OpenFileDialog())
+    {
+        Action<string> onComplete = (string path) =>
         {
-            fileBrowser.Filter = @"Interactive Roleplaying Map|*.irm;*.IRM";
-            DialogResult result = fileBrowser.ShowDialog();
-            string path = fileBrowser.FileName;
-
-            if (result == DialogResult.OK
-                && File.Exists(path))
+            if (path != null && File.Exists(path))
             {
                 BasicSettings.Instance.LoadSettingsFrom(path);
                 SceneManager.LoadScene((int)EditorScene);
@@ -25,6 +21,28 @@ public class Load : MonoBehaviour
             {
                 gameObject.SetActive(false);
             }
-        }
+        };
+
+        FileExplorer.SetFilters("IRM", "*");
+        FileExplorer.BrowseFile(onComplete);
+
+
+        //using (OpenFileDialog fileBrowser = new OpenFileDialog())
+        //{
+        //    fileBrowser.Filter = @"Interactive Roleplaying Map|*.irm;*.IRM";
+        //    DialogResult result = fileBrowser.ShowDialog();
+        //    string path = fileBrowser.FileName;
+
+        //    if (result == DialogResult.OK
+        //        && File.Exists(path))
+        //    {
+        //        BasicSettings.Instance.LoadSettingsFrom(path);
+        //        SceneManager.LoadScene((int)EditorScene);
+        //    }
+        //    else
+        //    {
+        //        gameObject.SetActive(false);
+        //    }
+        //}
     }
 }
